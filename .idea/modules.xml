@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Logopedie_2_Andreas_Aerst_Wouter_De_Laet.iml" filepath="$PROJECT_DIR$/Logopedie_2_Andreas_Aerst_Wouter_De_Laet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Logopedie_2_Andreas_Aerts_Wouter_De_Laet.iml" filepath="$PROJECT_DIR$/Logopedie_2_Andreas_Aerts_Wouter_De_Laet.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

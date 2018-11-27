@@ -22,8 +22,41 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQ_CODE_SPEECH_INPUT = 100;
     private TextView mVoiceInputTv;
     private ImageButton mSpeakBtn;
-    private String lijstMetWoorden []= {"test", "dit", "twee"};
-    //dedwejdhnwehfdwehfdwhefhwefhweuhf
+    private String woordenLijst[] =
+            {
+                    "Boeken",
+                    "De",
+                    "het",
+                    "een",
+                    "Dochter",
+                    "kind",
+                    "kindje",
+                    "meisje",
+                    "Grijpen",
+                    "pakken",
+                    "vangen",
+                    "Grootvader",
+                    "man",
+                    "opa",
+                    "papa",
+                    "vader",
+                    "Hoofd",
+                    "Kat",
+                    "poes",
+                    "Poot",
+                    "Proberen",
+                    "Slapen",
+                    "Staart",
+                    "Vaas",
+                    "Vallen",
+                    "Vis",
+                    "Waarschuwen",
+                    "wakker",
+                    "maken",
+                    "wekken",
+                    "Wijzen",
+                    "Duwen"
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
