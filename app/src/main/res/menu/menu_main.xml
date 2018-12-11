@@ -2,8 +2,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="be.thomasmore.logopedie_2_andreas_aerst_wouter_de_laet.MainActivity">
-            <item android:id="@+id/btnSpeechToText"
-                android:title="Ga naar speecht to text"
+    <item android:id="@+id/btnStartScherm"
+        android:title="@string/naar_start_scherm"
+        android:onClick="goToStartScreen_onClick"
+        />
+    <item android:id="@+id/btnSpeechToText"
+                android:title="@string/naar_speech_to_text"
                 android:onClick="goToSpeechToText_onClick"
                 />
+    <item android:id="@+id/btnWritingTest"
+        android:title="@string/naar_writing_test"
+        android:onClick="goToWritingTest_onClick"
+        />
 </menu>
