@@ -10,4 +10,16 @@
     <string name="dialog_signin">Meld je aan met:</string>
     <string name="dialog_loginButton">Login</string>
     <string name="dialog_registerButton">Registreer</string>
+    <string name="title_activity_writing_test">writing_test</string>
+    <string name="naar_start_scherm">Ga naar startscherm</string>
+    <string name="naar_speech_to_text">Ga naar speecht to text</string>
+    <string name="naar_writing_test">Ga naar schrijf test</string>
+    <string name="title_activity_navigation">Navigation</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>

@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -15,11 +16,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -83,9 +88,38 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        mImageView=(ImageView)findViewById(R.id.situatieplaat);
+        mImageView = (ImageView) findViewById(R.id.situatieplaat);
         mScaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
+
+
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    public void goToWritingTest_onClick(MenuItem m)
+    {
+        Intent intent = new Intent(this, writing_test.class);
+        startActivity(intent);
+    }
+
+    public void goToSpeechToText_onClick(MenuItem m)
+    {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToStartScreen_onClick(MenuItem m)
+    {
+        Intent intent = new Intent(this, StartScherm.class);
+        startActivity(intent);
+    }
+
     private void startVoiceInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
