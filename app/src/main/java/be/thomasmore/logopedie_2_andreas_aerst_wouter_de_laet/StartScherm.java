@@ -13,12 +13,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StartScherm extends AppCompatActivity {
-    private Logopedist logopedist = new Logopedist();
+    private DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,8 @@ public class StartScherm extends AppCompatActivity {
         setContentView(R.layout.activity_start_scherm);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        db = new DatabaseHelper(this);
 
     }
 
@@ -55,10 +59,7 @@ public class StartScherm extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         EditText editUsername = (EditText) viewInflater.findViewById(R.id.username);
                             EditText editPassword = (EditText)viewInflater.findViewById(R.id.password);
-                            if (editUsername.getText().toString() == logopedist.getEmail() && editPassword.getText().toString() == logopedist.getWachtwoord()) {
-                                TextView textViewUser = (TextView)viewInflater.findViewById(R.id.user);
-                                textViewUser.setText(editUsername.getText());
-                            }
+                        checkLogin(editUsername.getText().toString(), editPassword.getText().toString());
                     }
                 })
                 .setNegativeButton(R.string.dialog_annuleer, new DialogInterface.OnClickListener() {
@@ -67,6 +68,25 @@ public class StartScherm extends AppCompatActivity {
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void checkLogin(String login, String passwoord) {
+        Logopedist logopedist = db.getLogopedist(login, passwoord);
+        Button loginButton = (Button)findViewById(R.id.loginBtn);
+        Button registerButton = (Button)findViewById(R.id.registerBtn);
+        TextView textViewUser = (TextView)findViewById(R.id.user);
+        loginButton.setVisibility(View.INVISIBLE);
+        if (logopedist != null && logopedist.getEmail() != null) {
+            toon("Welkom " + logopedist.getEmail() + "!");
+        } else {
+            toon("Je bent nog niet geregistreerd!");
+            registerButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void toon(String tekst)
+    {
+        Toast.makeText(getBaseContext(), tekst, Toast.LENGTH_SHORT).show();
     }
 
     public void onButtonClick(View v) {

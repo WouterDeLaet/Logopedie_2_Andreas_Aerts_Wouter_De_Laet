@@ -102,14 +102,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // query-methode
-    public Logopedist getLogopedist(long id) {
+    public Logopedist getLogopedist(String naam, String passwoord) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(
                 "logopedist",      // tabelnaam
                 new String[] { "id", "email", "wachtwoord" }, // kolommen
-                "id = ?",  // selectie
-                new String[] { String.valueOf(id) }, // selectieparameters
+                "email = ? AND wachtwoord = ?",  // selectie
+                new String[] { String.valueOf(naam), String.valueOf(passwoord) }, // selectieparameters
                 null,           // groupby
                 null,           // having
                 null,           // sorting

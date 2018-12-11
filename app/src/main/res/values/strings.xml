@@ -9,4 +9,5 @@
     <string name="dialog_annuleer">Annuleren</string>
     <string name="dialog_signin">Meld je aan met:</string>
     <string name="dialog_loginButton">Login</string>
+    <string name="dialog_registerButton">Registreer</string>
 </resources>
