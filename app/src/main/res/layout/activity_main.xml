@@ -27,7 +27,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:background="#f5f5f5"
         android:gravity="center_horizontal"
         android:orientation="vertical"
