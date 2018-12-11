@@ -53,7 +53,7 @@ public class StartScherm extends AppCompatActivity {
 
         final View viewInflater = inflater.inflate(R.layout.dialog_signin, null);
         builder.setTitle(R.string.dialog_signin)
-                .setIcon(R.mipmap.ic_launcher)
+                .setIcon(R.drawable.login)
                 .setView(viewInflater)
                 .setPositiveButton(R.string.dialog_aanmelden, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
