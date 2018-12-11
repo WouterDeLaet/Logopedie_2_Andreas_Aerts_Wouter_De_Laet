@@ -13,8 +13,14 @@
         android:id="@+id/btnSpeechToText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ga naar speecht to text"
+        android:text="@string/dialog_loginButton"
         android:padding="16dp"
         android:scaleType="fitCenter"
+        android:onClick="onButtonClick"
         />
+
+    <TextView
+        android:id="@+id/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </android.support.constraint.ConstraintLayout>
