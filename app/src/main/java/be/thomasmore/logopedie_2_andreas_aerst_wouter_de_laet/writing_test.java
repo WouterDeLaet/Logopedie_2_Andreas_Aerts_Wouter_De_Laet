@@ -19,6 +19,8 @@ public class writing_test extends AppCompatActivity {
         setContentView(R.layout.activity_writing_test);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+//        DrawerUtil.getDrawer(this,toolbar);
     }
 
     @Override
