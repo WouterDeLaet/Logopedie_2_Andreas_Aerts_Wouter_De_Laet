@@ -96,6 +96,14 @@
                 android:padding="16dp"
                 android:scaleType="fitCenter"
                 />
+            <Button
+                android:id="@+id/btnSpeak1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Spreek je beschrijving in"
+                android:padding="16dp"
+                android:scaleType="fitCenter"
+                />
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"

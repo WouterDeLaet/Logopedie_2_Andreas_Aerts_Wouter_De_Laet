@@ -36,6 +36,8 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         resetTimer = (Button) findViewById(R.id.resetTimer);
 
         setListeners();
+
+//        DrawerUtil.getDrawer(this,toolbar);
     }
 
     @Override

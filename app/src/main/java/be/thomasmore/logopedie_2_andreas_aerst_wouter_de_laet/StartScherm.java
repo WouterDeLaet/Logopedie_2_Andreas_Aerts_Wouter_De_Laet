@@ -38,6 +38,8 @@ public class StartScherm extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+//        DrawerUtil.getDrawer(this,toolbar);
+
         db = new DatabaseHelper(this);
 
     }
@@ -112,5 +114,11 @@ public class StartScherm extends AppCompatActivity {
 
     public void onButtonClick(View v) {
         showCustomDialog();
+    }
+
+    public void test(View v)
+    {
+        TextView textView = (TextView) findViewById(R.id.textView);
+        textView.setText("FUBAR");
     }
 }
