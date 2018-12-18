@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="be.thomasmore.logopedie_2_andreas_aerst_wouter_de_laet">
+    <uses-sdk android:minSdkVersion="15"/>
 
     <application
         android:allowBackup="true"
