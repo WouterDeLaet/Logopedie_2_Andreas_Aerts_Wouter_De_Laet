@@ -28,11 +28,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </ScrollView>
-
         <LinearLayout
             android:id="@+id/btnSpeakContainer"
             android:layout_width="match_parent"
-            android:layout_height="341dp"
+            android:layout_height="381dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -40,7 +39,55 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:padding="20dp">
+            <EditText
+                android:id="@+id/enterMinutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/startTimer"
+                android:hint="@string/enter_minutes"
+                android:padding="10dp"
+                android:maxLength="4"
+                android:inputType="number"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textColorHint="#9E9E9E"
+                />
 
+            <Button
+                android:id="@+id/startTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:text="@string/start_timer" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/countdownText"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:textSize="30sp"
+                android:text="@string/timer"
+                android:layout_marginTop="25dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"/>
+            <Button
+                android:id="@+id/resetTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:text="@string/reset_timer" />
             <Button
                 android:id="@+id/btnSpeak"
                 android:layout_width="wrap_content"
@@ -63,5 +110,4 @@
                 android:src="@drawable/situatieplaat" />
         </LinearLayout>
     </RelativeLayout>
-
 </android.support.constraint.ConstraintLayout>
