@@ -96,15 +96,20 @@ public class StartScherm extends AppCompatActivity {
     private void checkLogin(String login, String passwoord) {
         Logopedist logopedist = db.getLogopedist(login, passwoord);
         Button loginButton = (Button)findViewById(R.id.loginBtn);
-        Button registerButton = (Button)findViewById(R.id.registerBtn);
         TextView textViewUser = (TextView)findViewById(R.id.user);
         loginButton.setVisibility(View.INVISIBLE);
-        if (logopedist != null && logopedist.getEmail() != null) {
+        long id = logopedist.getId();
+        if (logopedist != null && logopedist.getEmail() != null && logopedist.getWachtwoord() != null && id != 0) {
             toon("Welkom " + logopedist.getEmail() + "!");
         } else {
-            toon("Je bent nog niet geregistreerd!");
-            registerButton.setVisibility(View.VISIBLE);
+            Logopedist logo = new Logopedist();
+            logo.setEmail(login);
+            logo.setWachtwoord(passwoord);
+            db.insertLogopedist(logo);
+            logopedist = db.getLogopedist(login, passwoord);
         }
+
+        textViewUser.setText("Ingelogde gebruiker: " + logopedist.getEmail());
     }
 
     private void toon(String tekst)

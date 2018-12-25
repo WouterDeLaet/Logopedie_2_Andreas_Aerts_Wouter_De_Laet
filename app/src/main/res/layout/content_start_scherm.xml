@@ -28,16 +28,6 @@
             android:scaleType="fitCenter"
             android:text="@string/dialog_loginButton" />
 
-        <Button
-            android:id="@+id/registerBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onButtonClick"
-            android:padding="16dp"
-            android:scaleType="fitCenter"
-            android:text="@string/dialog_registerButton"
-            android:visibility="invisible" />
-
         <TextView
             android:id="@+id/user"
             android:layout_width="wrap_content"

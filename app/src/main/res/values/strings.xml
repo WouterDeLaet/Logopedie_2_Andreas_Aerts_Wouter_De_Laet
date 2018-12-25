@@ -2,7 +2,7 @@
     <string name="app_name">Logopedie_2_Andreas_Aerst_Wouter_De_Laet</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_start_scherm">StartScherm</string>
-    <string name="dialog_username">gebruiker</string>
+    <string name="dialog_username">email</string>
     <string name="dialog_password">wachtwoord</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_aanmelden">Aanmelden</string>

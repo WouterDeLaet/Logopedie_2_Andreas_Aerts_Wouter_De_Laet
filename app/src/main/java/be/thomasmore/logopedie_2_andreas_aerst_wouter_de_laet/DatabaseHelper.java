@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("wachtwoord", logopedist.getWachtwoord());
 
         long id = db.insert("logopedist", null, values);
-
         db.close();
         return id;
     }
@@ -75,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("emaim", logopedist.getEmail());
+        values.put("email", logopedist.getEmail());
         values.put("wachtwoord", logopedist.getWachtwoord());
 
         int numrows = db.update(
@@ -124,27 +124,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return logopedist;
-    }
-
-    // rawQuery-methode
-    public List<Logopedist> getLogopedists() {
-        List<Logopedist> lijst = new ArrayList<Logopedist>();
-
-        String selectQuery = "SELECT  * FROM president ORDER BY term";
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                Logopedist president = new Logopedist(cursor.getLong(0),
-                        cursor.getString(1), cursor.getString(2));
-                lijst.add(president);
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-        return lijst;
     }
 }
