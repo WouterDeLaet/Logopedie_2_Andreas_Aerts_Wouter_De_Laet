@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -36,6 +37,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "wachtwoord TEXT)";
         db.execSQL(CREATE_TABLE_LOGOPEDIST);
 
+        String CREATE_TABLE_PATIENT = "CREATE TABLE patient (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "naam TEXT," +
+                "testdatum DATE," +
+                "chronologischeLeeftijd DATE,"+
+                "geslacht TEXT,"+
+                "soortAfasie TEXT,"+
+                "geboortedatum DATE)";
+        db.execSQL(CREATE_TABLE_PATIENT);
+
         insertLogopedists(db);
     }
 
@@ -43,11 +54,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO logopedist (email, wachtwoord) VALUES ('andreas_aerts@hotmail.com', 'test123');");
     }
 
+    private void insertPatients(SQLiteDatabase db) {
+        db.execSQL("INSERT INTO patient (naam, testdatum, chronologischeLeeftijd, geslacht, soortAfasie, geboortedatum) VALUES ('Andreas Aerts', 26/12/2018, (26/12/2018) - (25/02/1998), 'man', 'Afasie1', 25/02/1998);");
+    }
+
     // methode wordt uitgevoerd als database geupgrade wordt
     // hierin de vorige tabellen wegdoen en opnieuw creëren
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS logopedist");
+        db.execSQL("DROP TABLE IF EXISTS patient");
 
         // Create tables again
         onCreate(db);
@@ -125,4 +141,82 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return logopedist;
     }
+
+    // insert-methode met ContentValues
+    public long insertPatient(Patient patient) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("naam", patient.getNaam());
+        values.put("testdatum", patient.getTestdatum().toString());
+        values.put("geboortedatum", patient.getGeboortedatum().toString());
+        values.put("chronologische_leeftijd", patient.getChronologischeLeeftijd().toString());
+        values.put("geslacht", patient.getGeslacht());
+        values.put("soortAfasie", patient.getSoortAfasie());
+
+        long id = db.insert("patient", null, values);
+        db.close();
+        return id;
+    }
+
+    // update-methode met ContentValues
+    public boolean updatePatient(Patient patient) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("naam", patient.getNaam());
+        values.put("testdatum", patient.getTestdatum().toString());
+        values.put("geboortedatum", patient.getGeboortedatum().toString());
+        values.put("chronologischeLeeftijd", patient.getChronologischeLeeftijd().toString());
+        values.put("geslacht", patient.getGeslacht());
+        values.put("soortAfasie", patient.getSoortAfasie());
+
+        int numrows = db.update(
+                "patient",
+                values,
+                "id = ?",
+                new String[] { String.valueOf(patient.getId()) });
+
+        db.close();
+        return numrows > 0;
+    }
+
+    // delete-methode
+    public boolean deletePatient(long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int numrows = db.delete(
+                "patient",
+                "id = ?",
+                new String[] { String.valueOf(id) });
+
+        db.close();
+        return numrows > 0;
+    }
+
+    // query-methode
+    /*public Logopedist getPatient(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(
+                "patient",      // tabelnaam
+                new String[] { "id", "naam", "testdatum", "geboortedatum","chronologischeLeeftijd","geslacht","soortAfasie" }, // kolommen
+                "id = ?",  // selectie
+                new String[] { String.valueOf(id)}, // selectieparameters
+                null,           // groupby
+                null,           // having
+                null,           // sorting
+                null);          // ??
+
+        Patient patient = new Patient();
+
+        if (cursor.moveToFirst()) {
+            patient = new Patient(cursor.getLong(0),
+                    cursor.getString(1), cursor.getLong(2)), Date.parse(cursor.getString(3)),
+                    Date.parse(cursor.getString(4)), cursor.getString(5), cursor.getString(6));
+        }
+        cursor.close();
+        db.close();
+        return patient;
+    }*/
 }
