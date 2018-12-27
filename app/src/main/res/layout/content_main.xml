@@ -8,14 +8,14 @@
     tools:context=".StartScherm"
     tools:showIn="@layout/activity_start_scherm">
 
-    <TextView
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -32,7 +32,7 @@
             android:layout_marginBottom="20dp"
             android:padding="20dp">
 
-            <TextView
+            <EditText
                 android:id="@+id/voiceInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
@@ -41,7 +41,7 @@
         <LinearLayout
             android:id="@+id/btnSpeakContainer"
             android:layout_width="match_parent"
-            android:layout_height="341dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -64,12 +64,89 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/btnSpeak"
                 android:layout_margin="10dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayoutRecorder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginTop="20dp"
+            >
+        <Chronometer
+            android:id="@+id/chronometerTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="60sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutPlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:visibility="gone"
+            >
 
             <ImageView
-                android:id="@+id/situatieplaat"
+                android:id="@+id/imageViewPlay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/situatieplaat" />
+                android:src="@drawable/ic_play"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:tint="@android:color/darker_gray"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground"
+                />
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                >
+
+
+                <ImageView
+                    android:id="@+id/imageViewRecord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_microphone"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    />
+
+                <ImageView
+                    android:id="@+id/imageViewStop"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/ic_stop"
+                    android:tint="@android:color/darker_gray"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_gravity="center_vertical"
+                    android:visibility="gone"
+                    android:clickable="true"
+                    android:focusable="true"
+                    />
+
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
