@@ -2,6 +2,7 @@
     <string name="app_name">Logopedie_2_Andreas_Aerst_Wouter_De_Laet</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_start_scherm">StartScherm</string>
+    <string name="tittle_app">beschrijven situatieplaat CAT-NL</string>
     <string name="dialog_username">gebruiker</string>
     <string name="dialog_password">wachtwoord</string>
     <string name="dialog_ok">OK</string>
@@ -10,7 +11,8 @@
     <string name="dialog_signin">Meld je aan met:</string>
     <string name="dialog_loginButton">Login</string>
     <string name="dialog_registerButton">Registreer</string>
-    <string name="title_activity_writing_test">writing_test</string>
+    <string name="title_activity_writing_test">schriftelijk beschrijven</string>
+    <string name="title_activity_speech_to_text_test">mondeling beschrijven</string>
     <string name="naar_start_scherm">Ga naar startscherm</string>
     <string name="naar_speech_to_text">Ga naar speecht to text</string>
     <string name="naar_writing_test">Ga naar schrijf test</string>
