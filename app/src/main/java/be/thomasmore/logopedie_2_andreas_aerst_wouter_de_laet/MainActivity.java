@@ -194,17 +194,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         mVoiceInputTv = (EditText) findViewById(R.id.voiceInput);
-        mSpeakBtn = (Button) findViewById(R.id.btnSpeak);
-        mSpeakBtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                startVoiceInput();
-            }
-        });
-
-        //mImageView = (ImageView) findViewById(R.id.situatieplaat);
-        //mScaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -242,51 +231,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, StartScherm.class);
         startActivity(intent);
     }
-
-    private void startVoiceInput() {
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Geef uw beschrijving op.");
-        try {
-            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
-        } catch (ActivityNotFoundException a) {
-
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case REQ_CODE_SPEECH_INPUT: {
-                if (resultCode == RESULT_OK && null != data) {
-                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    mVoiceInputTv.setText(result.get(0));
-                }
-                break;
-            }
-
-        }
-    }
-
-    /*public boolean onTouchEvent(MotionEvent motionEvent) {
-        mScaleGestureDetector.onTouchEvent(motionEvent);
-        return true;
-    }
-
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-        @Override
-        public boolean onScale(ScaleGestureDetector scaleGestureDetector){
-            mScaleFactor *= scaleGestureDetector.getScaleFactor();
-            mScaleFactor = Math.max(0.1f,
-                    Math.min(mScaleFactor, 10.0f));
-            mImageView.setScaleX(mScaleFactor);
-            mImageView.setScaleY(mScaleFactor);
-            return true;
-        }
-    }*/
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void getPermissionToRecordAudio() {
@@ -356,8 +300,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         /** setting up the toolbar  **/
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Voice Recorder");
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.black));
         setSupportActionBar(toolbar);
 
         linearLayoutRecorder = (LinearLayout) findViewById(R.id.linearLayoutRecorder);

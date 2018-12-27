@@ -97,9 +97,9 @@ public class StartScherm extends AppCompatActivity {
         Logopedist logopedist = db.getLogopedist(login, passwoord);
         Button loginButton = (Button)findViewById(R.id.loginBtn);
         TextView textViewUser = (TextView)findViewById(R.id.user);
-        loginButton.setVisibility(View.INVISIBLE);
         long id = logopedist.getId();
         if (logopedist != null && logopedist.getEmail() != null && logopedist.getWachtwoord() != null && id != 0) {
+            loginButton.setVisibility(View.INVISIBLE);
             toon("Welkom " + logopedist.getEmail() + "!");
         } else {
             Logopedist logo = new Logopedist();
@@ -119,11 +119,5 @@ public class StartScherm extends AppCompatActivity {
 
     public void onButtonClick(View v) {
         showCustomDialog();
-    }
-
-    public void test(View v)
-    {
-        TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText("FUBAR");
     }
 }
