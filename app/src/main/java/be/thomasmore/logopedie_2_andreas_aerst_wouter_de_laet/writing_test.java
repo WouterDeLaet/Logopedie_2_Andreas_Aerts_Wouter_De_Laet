@@ -31,11 +31,200 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
     private static Button startTimer, resetTimer;
     private static CountDownTimer countDownTimer;
     private static final int REQ_CODE_SPEECH_INPUT = 100;
-    private EditText mVoiceInputTv;
-    private Button mSpeakBtn;
     private ScaleGestureDetector mScaleGestureDetector;
     private float mScaleFactor = 1.0f;
     private ImageView mImageView;
+    private Button submitText;
+    private String woordenLijstEfficiëntie[] =
+            {
+                    "Armstoel",
+                    "leunstoel",
+                    "sofa",
+                    "zetel",
+                    "bank",
+                    "Beer",
+                    "knuffel",
+                    "pop",
+                    "speelgoed",
+                    "Boeken",
+                    "Boekenplank",
+                    "Splank",
+                    "rek",
+                    "Bokaal",
+                    "visbokaal",
+                    "viskom",
+                    "De",
+                    "het",
+                    "een",
+                    "Dochter",
+                    "kind",
+                    "kindje",
+                    "meisje",
+                    "Duwen",
+                    "duwt",
+                    "geduwd",
+                    "te duwen",
+                    "heeft geduwd",
+                    "duwde",
+                    "Grijpen",
+                    "te grijpen",
+                    "pakken",
+                    "te pakken",
+                    "vangen",
+                    "te vangen",
+                    "Grond",
+                    "vloer",
+                    "Grootvader",
+                    "man",
+                    "opa",
+                    "papa",
+                    "vader",
+                    "Haar",
+                    "Hoofd",
+                    "In",
+                    "Kat",
+                    "poes",
+                    "Met",
+                    "Op",
+                    "Poot",
+                    "Proberen",
+                    "probeert",
+                    "probeerde",
+                    "Slapen",
+                    "slaapt",
+                    "slapende",
+                    "sliep",
+                    "Spelen",
+                    "speelde",
+                    "te spelen",
+                    "speelt",
+                    "Staart",
+                    "Vaas",
+                    "Vallen",
+                    "vallende",
+                    "vielen",
+                    "Van",
+                    "Vis",
+                    "Waarschuwen",
+                    "te waarschuwen",
+                    "waarschuwt",
+                    "gewaarschuwd",
+                    "waarschuwde",
+                    "wakker maken",
+                    "wakker te maken",
+                    "maakt wakker",
+                    "maakte wakker",
+                    "wakker gemaakt",
+                    "wekken",
+                    "te wekken",
+                    "wekt",
+                    "gewekt",
+                    "wekte",
+                    "Zitten",
+                    "zit",
+                    "zat",
+                    "Aan",
+                    "Bijna",
+                    "Boven",
+                    "Dat",
+                    "die",
+                    "Daar",
+                    "Dik",
+                    "Dikke",
+                    "Gedronken",
+                    "Hard",
+                    "Hebben",
+                    "heeft",
+                    "had",
+                    "Hier",
+                    "Hij",
+                    "Ik",
+                    "Kast",
+                    "Klein",
+                    "Kleine",
+                    "Kunnen",
+                    "kan",
+                    "kon",
+                    "Lange",
+                    "Leeg",
+                    "Lege",
+                    "Liggen",
+                    "ligt",
+                    "lag",
+                    "Lijken",
+                    "lijkt",
+                    "Moe",
+                    "Moeten",
+                    "moet",
+                    "Mogen",
+                    "Mouw",
+                    "Naar",
+                    "Naast",
+                    "Nu",
+                    "Onder",
+                    "Oude",
+                    "Pijn",
+                    "Staan",
+                    "staat",
+                    "stond",
+                    "Toen",
+                    "Trekken",
+                    "trekt",
+                    "getrokken",
+                    "trok",
+                    "Vest",
+                    "Wakker",
+                    "Water",
+                    "Wijzen",
+                    "wijst",
+                    "wees",
+                    "Willen",
+                    "wil",
+                    "wou",
+                    "Worden",
+                    "wordt",
+                    "werd",
+                    "Ze",
+                    "Zij",
+                    "Zie",
+                    "Zijn",
+                    "is",
+                    "was",
+                    "waren",
+                    "Zullen",
+                    "zal"
+
+
+            };
+    private String woordenlijstSubstitutiegedrag[] =
+            {
+                "Cd’s",
+                "Cd-rek",
+                "Deur",
+                "Deuren",
+                "Fles",
+                "Glas",
+                "Gordijn",
+                "Handen",
+                "Living",
+                "Luidspreker",
+                "Luidsprekers",
+                "Plant",
+                "Raam",
+                "Radio",
+                "Rok",
+                "Salon",
+                "Salontafel",
+                "Stereo",
+                "Venster",
+                "Voeten",
+                "Wijn",
+                "Wijnfles",
+                "Woonkamer",
+                "Tegen",
+                "Voor",
+                "Vouwen"
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +236,18 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         minutes = (EditText) findViewById(R.id.enterMinutes);
         startTimer = (Button) findViewById(R.id.startTimer);
         resetTimer = (Button) findViewById(R.id.resetTimer);
-        mVoiceInputTv = (EditText) findViewById(R.id.voiceInput);
-        mSpeakBtn = (Button) findViewById(R.id.btnSpeak);
-        mSpeakBtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                startVoiceInput();
-            }
-        });
         mImageView = (ImageView) findViewById(R.id.situatieplaat);
         mScaleGestureDetector = new ScaleGestureDetector(this, new writing_test.ScaleListener());
+        submitText = (Button) findViewById(R.id.btnSubmit);
 
         setListeners();
 
+        submitText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculateWordEfficiency();
+            }
+        });
 //        DrawerUtil.getDrawer(this,toolbar);
     }
 
@@ -162,22 +349,6 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case REQ_CODE_SPEECH_INPUT: {
-                if (resultCode == RESULT_OK && null != data) {
-                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    mVoiceInputTv.setText(result.get(0));
-                }
-                break;
-            }
-
-        }
-    }
-
     public boolean onTouchEvent(MotionEvent motionEvent) {
         mScaleGestureDetector.onTouchEvent(motionEvent);
         return true;
@@ -193,5 +364,59 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             mImageView.setScaleY(mScaleFactor);
             return true;
         }
+    }
+
+    public void calculateWordEfficiency()
+    {
+        int numberOfWordsUsed = 0;
+        float efficiëntie = 0;
+        float numberOfUnUsedWords = 0;
+        float substitutiegedrag = 0;
+
+        EditText descriptionImage = (EditText) findViewById(R.id.descriptionImage);
+        TextView result = (TextView) findViewById(R.id.test);
+
+        String description = descriptionImage.getText().toString();
+        description = description.toLowerCase();
+
+        String descriptionSplitted [] = description.split(" ");
+
+         for(int i = 0; i < woordenLijstEfficiëntie.length; i++)
+         {
+             if(description.contains(woordenLijstEfficiëntie[i].toLowerCase()))
+             {
+                 numberOfWordsUsed += howManyTimesIsTheWordUsed(descriptionSplitted, woordenLijstEfficiëntie, i);
+             }
+         }
+
+        for(int i = 0; i < woordenlijstSubstitutiegedrag.length; i++)
+        {
+            if(description.contains(woordenlijstSubstitutiegedrag[i].toLowerCase()))
+            {
+                numberOfWordsUsed += howManyTimesIsTheWordUsed(descriptionSplitted, woordenlijstSubstitutiegedrag, i);
+            }
+        }
+
+        numberOfUnUsedWords = descriptionSplitted.length - numberOfWordsUsed;
+
+        efficiëntie = (numberOfWordsUsed / Float.parseFloat(descriptionSplitted.length + "")) * 100;
+
+        substitutiegedrag = (numberOfUnUsedWords / Float.parseFloat(descriptionSplitted.length + "")) * 100;
+
+        result.setText(getString(R.string.efficiëntie) + " " + efficiëntie + "%" + "\n" + getString(R.string.substitutiegedrag) + " " + substitutiegedrag + "%");
+    }
+
+    public int howManyTimesIsTheWordUsed(String descriptionSplitted [], String listOfWords [], int word)
+    {
+        int numberOfWordsUsed = 0;
+        for(int j = 0; j < descriptionSplitted.length; j ++)
+        {
+            if(descriptionSplitted[j].contains(listOfWords[word].toLowerCase()))
+            {
+                numberOfWordsUsed ++;
+            }
+        }
+
+        return numberOfWordsUsed;
     }
 }

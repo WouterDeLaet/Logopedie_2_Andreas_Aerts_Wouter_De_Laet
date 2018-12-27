@@ -5,6 +5,9 @@
     <string name="dialog_username">email</string>
     <string name="tittle_app">beschrijven situatieplaat CAT-NL</string>
     <string name="dialog_password">wachtwoord</string>
+    <string name="submit">Submit text</string>
+    <string name="efficiëntie">De efficiëntie is</string>
+    <string name="substitutiegedrag">Het substitutiegedrag is</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_aanmelden">Aanmelden</string>
     <string name="dialog_annuleer">Annuleren</string>
