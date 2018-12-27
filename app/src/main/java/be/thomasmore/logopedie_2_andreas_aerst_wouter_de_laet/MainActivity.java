@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int REQ_CODE_SPEECH_INPUT = 100;
     private EditText mVoiceInputTv;
     private Button mSpeakBtn;
-    private ScaleGestureDetector mScaleGestureDetector;
-    private float mScaleFactor = 1.0f;
     private int RECORD_AUDIO_REQUEST_CODE =123 ;
     private Toolbar toolbar;
     private Chronometer chronometer;
@@ -70,41 +68,124 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Handler mHandler = new Handler();
     private boolean isPlaying = false;
 
-    //private ImageView mImageView;
     private String woordenLijst[] =
             {
-                    "Boeken",
-                    "De",
-                    "het",
-                    "een",
+                    "Armstoel",
+                    "leunstoel",
+                    "sofa",
+                    "zetel",
+                    "bank",
+                    "Beer", "knuffel", "pop", "speelgoed",
+                    "Boeken", "Boekenplank", "plank", "rek",
+                    "Bokaal",
+                    "visbokaal",
+                    "viskom",
+                    "De", "het", "een",
                     "Dochter",
-                    "kind",
-                    "kindje",
-                    "meisje",
-                    "Grijpen",
-                    "pakken",
-                    "vangen",
-                    "Grootvader",
-                    "man",
-                    "opa",
-                    "papa",
-                    "vader",
+                    "kind", "kindje","meisje",
+                    "Duwen","duwt","geduwd","te duwen","heeft geduwd","duwde",
+                    "Grijpen","te grijpen","pakken","te pakken","vangen","te vangen",
+                    "Grond","vloer",
+                    "Grootvader","man","opa","papa","vader",
+                    "Haar",
                     "Hoofd",
-                    "Kat",
-                    "poes",
+                    "In",
+                    "Kat","poes",
+                    "Met",
+                    "Op",
                     "Poot",
-                    "Proberen",
-                    "Slapen",
+                    "Proberen","probeert","probeerde",
+                    "Slapen","slaapt","slapende","sliep",
+                    "Spelen","speelde","te spelen","speelt",
                     "Staart",
                     "Vaas",
-                    "Vallen",
+                    "Vallen","vallende","vielen",
+                    "Van",
                     "Vis",
-                    "Waarschuwen",
-                    "wakker",
-                    "maken",
-                    "wekken",
-                    "Wijzen",
-                    "Duwen"
+                    "Waarschuwen","te waarschuwen","waarschuwt","gewaarschuwd","waarschuwde",
+                    "wakker maken","wakker te maken","maakt wakker","maakte wakker",
+                    "wakker gemaakt","wekken","te wekken","wekt","gewekt","wekte",
+                    "Zitten","zit","zat",
+
+            };
+    private String aanvulldendeLijst[] =
+            {
+                    "Aan",
+                    "Bijna",
+                    "Boven",
+                    "Dat","die",
+                    "Daar",
+                    "Dik",
+                    "Dikke",
+                    "Gedronken",
+                    "Hard",
+                    "Hebben","heeft","had",
+                    "Hier",
+                    "Hij",
+                    "Ik",
+                    "Kast",
+                    "Klein",
+                    "Kleine",
+                    "Kunnen","kan","kon",
+                    "Lange",
+                    "Leeg",
+                    "Lege",
+                    "Liggen","ligt","lag",
+                    "Lijken","lijkt",
+                    "Moe",
+                    "Moeten","moet",
+                    "Mogen",
+                    "Mouw",
+                    "Naar",
+                    "Naast",
+                    "Nu",
+                    "Onder",
+                    "Oude",
+                    "Pijn",
+                    "Staan","staat","stond",
+                    "Toen",
+                    "Trekken","trekt","getrokken","trok",
+                    "Vest",
+                    "Wakker",
+                    "Water",
+                    "Wijzen","wijst","wees",
+                    "Willen","wil","wou",
+                    "Worden","wordt","werd",
+                    "Ze",
+                    "Zij",
+                    "Zie",
+                    "Zijn","is","was","waren",
+                    "Zullen","zal",
+            };
+
+    private String substitutiegedrag[] =
+            {
+                    "Cd’s",
+                    "Cd-rek",
+                    "Deur",
+                    "Deuren",
+                    "Fles",
+                    "Glas" ,
+                    "Gordijn" ,
+                    "Handen" ,
+                    "Living" ,
+                    "Luidspreker" ,
+                    "Luidsprekers" ,
+                    "Plant" ,
+                    "Raam" ,
+                    "Radio" ,
+                    "Rok" ,
+                    "Salon" ,
+                    "Salontafel" ,
+                    "Stereo" ,
+                    "Venster" ,
+                    "Voeten" ,
+                    "Wijn" ,
+                    "Wijnfles" ,
+                    "Woonkamer" ,
+                    "Tegen" ,
+                    "Voor" ,
+                    "Vouwen"
             };
 
     @Override
@@ -113,17 +194,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         mVoiceInputTv = (EditText) findViewById(R.id.voiceInput);
-        mSpeakBtn = (Button) findViewById(R.id.btnSpeak);
-        mSpeakBtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                startVoiceInput();
-            }
-        });
-
-        //mImageView = (ImageView) findViewById(R.id.situatieplaat);
-        //mScaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -161,51 +231,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, StartScherm.class);
         startActivity(intent);
     }
-
-    private void startVoiceInput() {
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Geef uw beschrijving op.");
-        try {
-            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
-        } catch (ActivityNotFoundException a) {
-
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case REQ_CODE_SPEECH_INPUT: {
-                if (resultCode == RESULT_OK && null != data) {
-                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    mVoiceInputTv.setText(result.get(0));
-                }
-                break;
-            }
-
-        }
-    }
-
-    /*public boolean onTouchEvent(MotionEvent motionEvent) {
-        mScaleGestureDetector.onTouchEvent(motionEvent);
-        return true;
-    }
-
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-        @Override
-        public boolean onScale(ScaleGestureDetector scaleGestureDetector){
-            mScaleFactor *= scaleGestureDetector.getScaleFactor();
-            mScaleFactor = Math.max(0.1f,
-                    Math.min(mScaleFactor, 10.0f));
-            mImageView.setScaleX(mScaleFactor);
-            mImageView.setScaleY(mScaleFactor);
-            return true;
-        }
-    }*/
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void getPermissionToRecordAudio() {
@@ -275,8 +300,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         /** setting up the toolbar  **/
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Voice Recorder");
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.black));
         setSupportActionBar(toolbar);
 
         linearLayoutRecorder = (LinearLayout) findViewById(R.id.linearLayoutRecorder);
