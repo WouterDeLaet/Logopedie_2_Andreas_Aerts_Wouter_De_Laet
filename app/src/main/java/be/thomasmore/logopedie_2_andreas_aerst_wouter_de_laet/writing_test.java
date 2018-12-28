@@ -226,7 +226,13 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
                 "Voor",
                 "Vouwen"
             };
-
+    String woordenlijstCausaalVerband [] = {
+            "Vaas valt. grootvader pijn",
+            "Vaas valt. man pijn",
+            "Vaas valt. opa pijn",
+            "Vaas valt. papa pijn",
+            "Vaas valt. vader pijn"
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -338,18 +344,6 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void startVoiceInput() {
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Geef uw beschrijving op.");
-        try {
-            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
-        } catch (ActivityNotFoundException a) {
-
-        }
-    }
-
     public boolean onTouchEvent(MotionEvent motionEvent) {
         mScaleGestureDetector.onTouchEvent(motionEvent);
         return true;
@@ -374,6 +368,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         float efficiëntie = 0;
         float numberOfUnUsedWords = 0;
         float substitutiegedrag = 0;
+        float numberOfCausaalVerbandenUsed = 0;
 
         EditText descriptionImage = (EditText) findViewById(R.id.descriptionImage);
         TextView result = (TextView) findViewById(R.id.test);
@@ -381,13 +376,14 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         String description = descriptionImage.getText().toString();
         description = description.toLowerCase();
 
-        String descriptionSplitted [] = description.split(" ");
+        String descriptionSplittedBySpace [] = description.split(" ");
+        String descriptionSplittedByPoint [] = description.split(".");
 
          for(int i = 0; i < woordenLijstEfficiëntie.length; i++)
          {
              if(description.contains(woordenLijstEfficiëntie[i].toLowerCase()))
              {
-                 numberOfWordsUsed += howManyTimesIsTheWordUsed(descriptionSplitted, woordenLijstEfficiëntie, i);
+                 numberOfWordsUsed += howManyTimesIsTheWordUsed(descriptionSplittedBySpace, woordenLijstEfficiëntie, i);
              }
          }
 
@@ -395,6 +391,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         {
             if(description.contains(woordenlijstSubstitutiegedrag[i].toLowerCase()))
             {
+<<<<<<< HEAD
                 numberOfWordsUsedSubstitutie += howManyTimesIsTheWordUsed(descriptionSplitted, woordenlijstSubstitutiegedrag, i);
             } else {
                 numberOfUnUsedWords++;
@@ -404,8 +401,27 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         efficiëntie = (numberOfWordsUsed / Float.parseFloat(woordenLijstEfficiëntie.length + "")) * 100;
 
         substitutiegedrag = (numberOfUnUsedWords / Float.parseFloat(woordenlijstSubstitutiegedrag.length + "")) * 100;
+=======
+                numberOfWordsUsed += howManyTimesIsTheWordUsed(descriptionSplittedBySpace, woordenlijstSubstitutiegedrag, i);
+            }
+        }
 
-        result.setText(getString(R.string.efficiëntie) + " " + efficiëntie + "%" + "\n" + getString(R.string.substitutiegedrag) + " " + substitutiegedrag + "%");
+        for(int i = 0; i < woordenlijstCausaalVerband.length; i ++)
+            if(description.contains(woordenlijstCausaalVerband[i].toLowerCase()))
+            {
+                numberOfCausaalVerbandenUsed += howManyTimesIsTheCausaalVerbandUsed(descriptionSplittedByPoint, woordenlijstCausaalVerband, i);
+            }
+
+        numberOfUnUsedWords = descriptionSplittedBySpace.length - numberOfWordsUsed;
+
+        efficiëntie = (numberOfWordsUsed / Float.parseFloat(descriptionSplittedBySpace.length + "")) * 100;
+>>>>>>> WouterDeLaet
+
+        substitutiegedrag = (numberOfUnUsedWords / Float.parseFloat(descriptionSplittedBySpace.length + "")) * 100;
+
+        result.setText(getString(R.string.efficiëntie) + " " + efficiëntie + "%" + "\n"
+                + getString(R.string.substitutiegedrag) + " " + substitutiegedrag + "%" + "\n"
+                + "aantal causal verbanden " + numberOfCausaalVerbandenUsed);
     }
 
     public int howManyTimesIsTheWordUsed(String descriptionSplitted [], String listOfWords [], int word)
@@ -414,6 +430,21 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         for(int j = 0; j < descriptionSplitted.length; j ++)
         {
             if(descriptionSplitted[j].contains(listOfWords[word].toLowerCase()))
+            {
+                numberOfWordsUsed ++;
+            }
+        }
+
+        return numberOfWordsUsed;
+    }
+    public int howManyTimesIsTheCausaalVerbandUsed(String descriptionSplitted [], String listOfWords [], int word)
+    {
+        int numberOfWordsUsed = 0;
+        for(int j = 0; j < descriptionSplitted.length - 1; j ++)
+        {
+            int k = j + 1;
+            String combinationOfTwoScenteces = descriptionSplitted[j] + "." + descriptionSplitted[k];
+            if(combinationOfTwoScenteces.contains(listOfWords[word].toLowerCase()))
             {
                 numberOfWordsUsed ++;
             }
