@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -369,6 +370,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
     public void calculateWordEfficiency()
     {
         int numberOfWordsUsed = 0;
+        int numberOfWordsUsedSubstitutie = 0;
         float efficiëntie = 0;
         float numberOfUnUsedWords = 0;
         float substitutiegedrag = 0;
@@ -393,15 +395,15 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         {
             if(description.contains(woordenlijstSubstitutiegedrag[i].toLowerCase()))
             {
-                numberOfWordsUsed += howManyTimesIsTheWordUsed(descriptionSplitted, woordenlijstSubstitutiegedrag, i);
+                numberOfWordsUsedSubstitutie += howManyTimesIsTheWordUsed(descriptionSplitted, woordenlijstSubstitutiegedrag, i);
+            } else {
+                numberOfUnUsedWords++;
             }
         }
 
-        numberOfUnUsedWords = descriptionSplitted.length - numberOfWordsUsed;
+        efficiëntie = (numberOfWordsUsed / Float.parseFloat(woordenLijstEfficiëntie.length + "")) * 100;
 
-        efficiëntie = (numberOfWordsUsed / Float.parseFloat(descriptionSplitted.length + "")) * 100;
-
-        substitutiegedrag = (numberOfUnUsedWords / Float.parseFloat(descriptionSplitted.length + "")) * 100;
+        substitutiegedrag = (numberOfUnUsedWords / Float.parseFloat(woordenlijstSubstitutiegedrag.length + "")) * 100;
 
         result.setText(getString(R.string.efficiëntie) + " " + efficiëntie + "%" + "\n" + getString(R.string.substitutiegedrag) + " " + substitutiegedrag + "%");
     }
