@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 8;
     // Database Name
     private static final String DATABASE_NAME = "logopedie";
 
@@ -166,10 +167,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("naam", patient.getNaam());
         values.put("testdatum", patient.getTestdatum().toString());
-        values.put("geboortedatum", patient.getGeboortedatum().toString());
         values.put("chronologischeLeeftijd", patient.getChronologischeLeeftijd().toString());
         values.put("geslacht", patient.getGeslacht());
         values.put("soortAfasie", patient.getSoortAfasie());
+        values.put("geboortedatum", patient.getGeboortedatum().toString());
 
         int numrows = db.update(
                 "patient",
@@ -219,4 +220,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return patient;
     }*/
+
+    public List<Patient> getPatienten() {
+        List<Patient> lijst = new ArrayList<Patient>();
+        String selectQuery = "SELECT * FROM patient";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Patient patient = new Patient(cursor.getLong(0),
+                cursor.getString(1), new Date(cursor.getString(2)), new Date(cursor.getLong(3)),
+                        cursor.getString(4), cursor.getString(5), new Date(cursor.getString(6)));
+                lijst.add(patient);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return lijst;
+    }
 }

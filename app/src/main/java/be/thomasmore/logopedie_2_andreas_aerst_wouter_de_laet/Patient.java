@@ -14,7 +14,7 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(long id, String naam, Date geboortedatum, Date testdatum, Date chronologischeLeeftijd, String geslacht, String soortAfasie) {
+    public Patient(long id, String naam, Date testdatum, Date chronologischeLeeftijd, String geslacht, String soortAfasie, Date geboortedatum) {
         this.id = id;
         this.naam = naam;
         this.geboortedatum = geboortedatum;
@@ -78,5 +78,10 @@ public class Patient {
 
     public void setSoortAfasie(String soortAfasie) {
         this.soortAfasie = soortAfasie;
+    }
+
+    @Override
+    public String toString() {
+        return naam;
     }
 }

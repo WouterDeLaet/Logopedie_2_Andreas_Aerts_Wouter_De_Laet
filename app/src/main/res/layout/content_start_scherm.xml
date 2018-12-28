@@ -28,9 +28,24 @@
             android:scaleType="fitCenter"
             android:text="@string/dialog_loginButton" />
 
+        <Button
+            android:id="@+id/patient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onButtonPatientClick"
+            android:padding="16dp"
+            android:scaleType="fitCenter"
+            android:text="@string/dialog_patient" />
+
         <TextView
             android:id="@+id/user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <ListView
+            android:id="@+id/listViewPatienten"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:dividerHeight="1dp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -199,32 +199,32 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             };
     private String woordenlijstSubstitutiegedrag[] =
             {
-                "Cd’s",
-                "Cd-rek",
-                "Deur",
-                "Deuren",
-                "Fles",
-                "Glas",
-                "Gordijn",
-                "Handen",
-                "Living",
-                "Luidspreker",
-                "Luidsprekers",
-                "Plant",
-                "Raam",
-                "Radio",
-                "Rok",
-                "Salon",
-                "Salontafel",
-                "Stereo",
-                "Venster",
-                "Voeten",
-                "Wijn",
-                "Wijnfles",
-                "Woonkamer",
-                "Tegen",
-                "Voor",
-                "Vouwen"
+                    "Cd’s",
+                    "Cd-rek",
+                    "Deur",
+                    "Deuren",
+                    "Fles",
+                    "Glas",
+                    "Gordijn",
+                    "Handen",
+                    "Living",
+                    "Luidspreker",
+                    "Luidsprekers",
+                    "Plant",
+                    "Raam",
+                    "Radio",
+                    "Rok",
+                    "Salon",
+                    "Salontafel",
+                    "Stereo",
+                    "Venster",
+                    "Voeten",
+                    "Wijn",
+                    "Wijnfles",
+                    "Woonkamer",
+                    "Tegen",
+                    "Voor",
+                    "Vouwen"
             };
     String woordenlijstCausaalVerband [] = {
             "Vaas valt. grootvader pijn",
@@ -379,20 +379,19 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         String descriptionSplittedBySpace [] = description.split(" ");
         String descriptionSplittedByPoint [] = description.split(".");
 
-         for(int i = 0; i < woordenLijstEfficiëntie.length; i++)
-         {
-             if(description.contains(woordenLijstEfficiëntie[i].toLowerCase()))
-             {
-                 numberOfWordsUsed += howManyTimesIsTheWordUsed(descriptionSplittedBySpace, woordenLijstEfficiëntie, i);
-             }
-         }
+        for(int i = 0; i < woordenLijstEfficiëntie.length; i++)
+        {
+            if(description.contains(woordenLijstEfficiëntie[i].toLowerCase()))
+            {
+                numberOfWordsUsed += howManyTimesIsTheWordUsed(descriptionSplittedBySpace, woordenLijstEfficiëntie, i);
+            }
+        }
 
         for(int i = 0; i < woordenlijstSubstitutiegedrag.length; i++)
         {
             if(description.contains(woordenlijstSubstitutiegedrag[i].toLowerCase()))
             {
-<<<<<<< HEAD
-                numberOfWordsUsedSubstitutie += howManyTimesIsTheWordUsed(descriptionSplitted, woordenlijstSubstitutiegedrag, i);
+                numberOfWordsUsedSubstitutie += howManyTimesIsTheWordUsed(descriptionSplittedByPoint, woordenlijstSubstitutiegedrag, i);
             } else {
                 numberOfUnUsedWords++;
             }
@@ -401,23 +400,15 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         efficiëntie = (numberOfWordsUsed / Float.parseFloat(woordenLijstEfficiëntie.length + "")) * 100;
 
         substitutiegedrag = (numberOfUnUsedWords / Float.parseFloat(woordenlijstSubstitutiegedrag.length + "")) * 100;
-=======
-                numberOfWordsUsed += howManyTimesIsTheWordUsed(descriptionSplittedBySpace, woordenlijstSubstitutiegedrag, i);
+
+        for(int i = 0; i < woordenlijstCausaalVerband.length; i ++)
+
+        {
+            if (description.contains(woordenlijstCausaalVerband[i].toLowerCase())) {
+                numberOfCausaalVerbandenUsed += howManyTimesIsTheCausaalVerbandUsed(descriptionSplittedByPoint, woordenlijstCausaalVerband, i);
             }
         }
 
-        for(int i = 0; i < woordenlijstCausaalVerband.length; i ++)
-            if(description.contains(woordenlijstCausaalVerband[i].toLowerCase()))
-            {
-                numberOfCausaalVerbandenUsed += howManyTimesIsTheCausaalVerbandUsed(descriptionSplittedByPoint, woordenlijstCausaalVerband, i);
-            }
-
-        numberOfUnUsedWords = descriptionSplittedBySpace.length - numberOfWordsUsed;
-
-        efficiëntie = (numberOfWordsUsed / Float.parseFloat(descriptionSplittedBySpace.length + "")) * 100;
->>>>>>> WouterDeLaet
-
-        substitutiegedrag = (numberOfUnUsedWords / Float.parseFloat(descriptionSplittedBySpace.length + "")) * 100;
 
         result.setText(getString(R.string.efficiëntie) + " " + efficiëntie + "%" + "\n"
                 + getString(R.string.substitutiegedrag) + " " + substitutiegedrag + "%" + "\n"

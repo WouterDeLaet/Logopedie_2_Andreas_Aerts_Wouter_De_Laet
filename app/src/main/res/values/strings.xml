@@ -31,5 +31,15 @@
     <string name="start_timer">Start Timer</string>
     <string name="stop_timer">Stop Timer</string>
     <string name="reset_timer">Reset Timer</string>
+    <string name="dialog_patient">Geef patient in</string>
+    <string name="dialog_name">Naam</string>
+    <string name="dialog_geboorteDatum">Geboortedatum</string>
+    <string name="dialog_testDatum">Testdatum</string>
+    <string name="dialog_radio0">Man</string>
+    <string name="dialog_radio1">Vrouw</string>
+    <string name="dialog_geslacht">Geslacht</string>
+    <string name="dialog_chronologischeLeeftijd">Chronologische leeftijd</string>
+    <string name="dialog_afasie">Soort afasie</string>
+    <string name="save">Opslaan</string>
     <string name="timer">00:00:00</string>
 </resources>

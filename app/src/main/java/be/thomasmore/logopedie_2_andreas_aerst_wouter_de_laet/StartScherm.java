@@ -22,11 +22,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.Date;
+import java.util.List;
 
 public class StartScherm extends AppCompatActivity {
     private DatabaseHelper db;
@@ -41,6 +46,7 @@ public class StartScherm extends AppCompatActivity {
 //        DrawerUtil.getDrawer(this,toolbar);
 
         db = new DatabaseHelper(this);
+        leesPatienten();
 
     }
 
@@ -81,8 +87,29 @@ public class StartScherm extends AppCompatActivity {
                 .setPositiveButton(R.string.dialog_aanmelden, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         EditText editUsername = (EditText) viewInflater.findViewById(R.id.username);
-                            EditText editPassword = (EditText)viewInflater.findViewById(R.id.password);
+                        EditText editPassword = (EditText)viewInflater.findViewById(R.id.password);
                         checkLogin(editUsername.getText().toString(), editPassword.getText().toString());
+                    }
+                })
+                .setNegativeButton(R.string.dialog_annuleer, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void showPatientDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        final View viewInflater = inflater.inflate(R.layout.dialog_patient, null);
+        builder.setTitle(R.string.dialog_signin)
+                .setIcon(R.drawable.login)
+                .setView(viewInflater)
+                .setPositiveButton(R.string.dialog_aanmelden, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        save();
                     }
                 })
                 .setNegativeButton(R.string.dialog_annuleer, new DialogInterface.OnClickListener() {
@@ -119,5 +146,47 @@ public class StartScherm extends AppCompatActivity {
 
     public void onButtonClick(View v) {
         showCustomDialog();
+    }
+
+    public void onButtonPatientClick(View v) {
+        showPatientDialog();
+    }
+
+    public void save() {
+        EditText naam = (EditText)findViewById(R.id.name);
+        EditText geboortedatum = (EditText)findViewById(R.id.geboortedatum);
+        EditText testdatum = (EditText)findViewById(R.id.testdatum);
+        EditText chronologischeLeeftijd = (EditText)findViewById(R.id.chronologischeLeeftijd);
+        EditText geslacht = (EditText)findViewById(R.id.geslacht);
+        EditText afasie = (EditText)findViewById(R.id.soortAfasie);
+
+        Patient patient = new Patient();
+        patient.setNaam(naam.getText().toString());
+        patient.setGeboortedatum((Date) geboortedatum.getText());
+        patient.setTestdatum((Date) testdatum.getText());
+        patient.setChronologischeLeeftijd((Date) chronologischeLeeftijd.getText());
+        patient.setSoortAfasie(afasie.getText().toString());
+        patient.setGeslacht(geslacht.getText().toString());
+        db.insertPatient(patient);
+
+        leesPatienten();
+    }
+
+    private void leesPatienten() {
+        final List<Patient> patients = db.getPatienten();
+        String selectedItems = "";
+
+        ArrayAdapter<Patient> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, patients);
+
+        final ListView listViewPatienten = (ListView)findViewById(R.id.listViewPatienten);
+        listViewPatienten.setAdapter(adapter);
+        listViewPatienten.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
+        Log.i("lijst", patients.toString());
     }
 }
