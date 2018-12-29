@@ -43,6 +43,7 @@ import java.util.List;
 public class StartScherm extends AppCompatActivity {
     private DatabaseHelper db;
     private int year, month, day;
+    private long currentPatientId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class StartScherm extends AppCompatActivity {
     public void goToWritingTest_onClick(MenuItem m)
     {
         Intent intent = new Intent(this, writing_test.class);
+        intent.putExtra("currentPatientId", currentPatientId);
         startActivity(intent);
     }
 
@@ -211,6 +213,7 @@ public class StartScherm extends AppCompatActivity {
                 chronologischeLeeftijd.setText(patient.getChronologischeLeeftijd() + "", TextView.BufferType.EDITABLE);
                 geslacht.setText(patient.getGeslacht(), TextView.BufferType.EDITABLE);
                 afasie.setText(patient.getSoortAfasie(), TextView.BufferType.EDITABLE);
+                currentPatientId = patientID;
             }
         });
     }
