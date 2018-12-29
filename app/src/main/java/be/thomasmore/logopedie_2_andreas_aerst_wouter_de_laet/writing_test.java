@@ -1399,6 +1399,13 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         }
 
 
+        Patient patient = new Patient();
+
+        patient.setScoreEfficientie(Integer.parseInt(efficiëntie + ""));
+        patient.setScoreSubstitutie(Integer.parseInt(substitutiegedrag + ""));
+        patient.setScoreCoherentie(Integer.parseInt(numberOfCausaalVerbandenUsed + ""));
+
+
         result.setText(getString(R.string.efficiëntie) + " " + efficiëntie + "%" + "\n"
                 + getString(R.string.substitutiegedrag) + " " + substitutiegedrag + "%" + "\n"
                 + "aantal causal verbanden " + numberOfCausaalVerbandenUsed);
