@@ -20,9 +20,9 @@ public class DrawerUtil {
         PrimaryDrawerItem drawerItemGoToStartScherm = new PrimaryDrawerItem().withIdentifier(1)
                 .withName(R.string.naar_start_scherm).withIcon(R.drawable.ic_menu_camera);
         PrimaryDrawerItem drawerItemGoToSpeechToText = new PrimaryDrawerItem()
-                .withIdentifier(2).withName(R.string.naar_speech_to_text).withIcon(R.drawable.ic_menu_gallery);
+                .withIdentifier(2).withName(R.string.title_activity_speech_to_text_test).withIcon(R.drawable.ic_menu_gallery);
         PrimaryDrawerItem drawerItemGoToWritingTest = new PrimaryDrawerItem()
-                .withIdentifier(3).withName(R.string.naar_writing_test).withIcon(R.drawable.ic_menu_slideshow);
+                .withIdentifier(3).withName(R.string.title_activity_writing_test).withIcon(R.drawable.ic_menu_slideshow);
 
         //create the drawer and remember the `Drawer` result object
         Drawer result = new DrawerBuilder()

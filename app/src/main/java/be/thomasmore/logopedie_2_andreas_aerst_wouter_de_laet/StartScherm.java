@@ -15,6 +15,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -159,22 +160,22 @@ public class StartScherm extends AppCompatActivity {
         String coherentieString = coherentie.getText().toString();
 
         long daysBetween = 0;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date geboortedatumT = formatter.parse(stringGeboortedatum);
             Date testdatumOmgezet = formatter.parse(stringTestdatum);
             formatter.format(geboortedatumT);
             formatter.format(testdatumOmgezet);
             daysBetween = (testdatumOmgezet.getTime()-geboortedatumT.getTime())/86400000;
             daysBetween = Math.abs(daysBetween);
-            patient.setGeboortedatum(geboortedatumT);
-            patient.setTestdatum(testdatumOmgezet);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         patient.setNaam(naamString);
+        patient.setGeboortedatum(stringGeboortedatum);
+        patient.setTestdatum(stringTestdatum);
         patient.setChronologischeLeeftijd(daysBetween);
         patient.setSoortAfasie(afasieString);
         patient.setGeslacht(geslachtString);
@@ -204,14 +205,45 @@ public class StartScherm extends AppCompatActivity {
                 EditText chronologischeLeeftijd = (EditText)findViewById(R.id.chronologischeLeeftijd);
                 EditText geslacht = (EditText)findViewById(R.id.geslacht);
                 EditText afasie = (EditText)findViewById(R.id.soortAfasie);
+                EditText productiviteit = (EditText)findViewById(R.id.scoreProduct);
+                EditText efficientie = (EditText)findViewById(R.id.scoreEfficientie);
+                EditText substitutiegedrag = (EditText)findViewById(R.id.scoreSubstitutie);
+                EditText coherentie = (EditText)findViewById(R.id.scoreCoherentie);
 
-                naam.setText(patient.getNaam(), TextView.BufferType.EDITABLE);
-                geboortedatum.setText(patient.getGeboortedatum().toString(), TextView.BufferType.EDITABLE);
-                testdatum.setText(patient.getTestdatum().toString(), TextView.BufferType.EDITABLE);
-                chronologischeLeeftijd.setText(patient.getChronologischeLeeftijd() + "", TextView.BufferType.EDITABLE);
-                geslacht.setText(patient.getGeslacht(), TextView.BufferType.EDITABLE);
-                afasie.setText(patient.getSoortAfasie(), TextView.BufferType.EDITABLE);
+                naam.setText(patient.getNaam());
+                geboortedatum.setText(patient.getGeboortedatum());
+                testdatum.setText(patient.getTestdatum());
+                chronologischeLeeftijd.setText(patient.getChronologischeLeeftijd() + "");
+                geslacht.setText(patient.getGeslacht());
+                afasie.setText(patient.getSoortAfasie());
+                productiviteit.setText(patient.getScoreProductiviteit() + "");
+                efficientie.setText(patient.getScoreEfficientie() + "");
+                substitutiegedrag.setText(patient.getScoreSubstitutie() + "");
+                coherentie.setText(patient.getScoreCoherentie() + "");
             }
         });
+    }
+
+    public void afterTextChanged(Editable s) {
+        EditText geboortedatum = (EditText)findViewById(R.id.geboortedatum);
+        EditText testdatum = (EditText)findViewById(R.id.testdatum);
+        String stringGeboortedatum = geboortedatum.getText().toString();
+        String stringTestdatum = testdatum.getText().toString();
+        EditText chronologischeLeeftijd = (EditText)findViewById(R.id.chronologischeLeeftijd);
+        long daysBetween = 0;
+
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date geboortedatumT = formatter.parse(stringGeboortedatum);
+            Date testdatumOmgezet = formatter.parse(stringTestdatum);
+            formatter.format(geboortedatumT);
+            formatter.format(testdatumOmgezet);
+            daysBetween = (testdatumOmgezet.getTime() - geboortedatumT.getTime()) / 86400000;
+            daysBetween = Math.abs(daysBetween);
+        }catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        chronologischeLeeftijd.setText(daysBetween + "");
     }
 }

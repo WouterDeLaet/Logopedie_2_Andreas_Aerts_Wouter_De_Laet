@@ -7,11 +7,11 @@
         android:onClick="goToStartScreen_onClick"
         />
     <item android:id="@+id/btnSpeechToText"
-                android:title="@string/naar_speech_to_text"
+                android:title="@string/title_activity_speech_to_text_test"
                 android:onClick="goToSpeechToText_onClick"
                 />
     <item android:id="@+id/btnWritingTest"
-        android:title="@string/naar_writing_test"
+        android:title="@string/title_activity_writing_test"
         android:onClick="goToWritingTest_onClick"
         />
 </menu>

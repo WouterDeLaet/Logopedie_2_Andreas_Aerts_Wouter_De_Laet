@@ -5,8 +5,8 @@ import java.util.Date;
 public class Patient {
     private long id;
     private String naam;
-    private Date geboortedatum;
-    private Date testdatum;
+    private String geboortedatum;
+    private String testdatum;
     private long chronologischeLeeftijd;
     private String geslacht;
     private String soortAfasie;
@@ -18,7 +18,7 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(long id, String naam, Date testdatum, long chronologischeLeeftijd, String geslacht, String soortAfasie, Date geboortedatum, int scoreProductiviteit, int scoreEfficientie, int scoreSubstitutie, int scoreCoherentie) {
+    public Patient(long id, String naam, String testdatum, long chronologischeLeeftijd, String geslacht, String soortAfasie, String geboortedatum, int scoreProductiviteit, int scoreEfficientie, int scoreSubstitutie, int scoreCoherentie) {
         this.id = id;
         this.naam = naam;
         this.geboortedatum = geboortedatum;
@@ -48,19 +48,19 @@ public class Patient {
         this.naam = naam;
     }
 
-    public Date getGeboortedatum() {
+    public String getGeboortedatum() {
         return geboortedatum;
     }
 
-    public void setGeboortedatum(Date geboortedatum) {
+    public void setGeboortedatum(String geboortedatum) {
         this.geboortedatum = geboortedatum;
     }
 
-    public Date getTestdatum() {
+    public String getTestdatum() {
         return testdatum;
     }
 
-    public void setTestdatum(Date testdatum) {
+    public void setTestdatum(String testdatum) {
         this.testdatum = testdatum;
     }
 
