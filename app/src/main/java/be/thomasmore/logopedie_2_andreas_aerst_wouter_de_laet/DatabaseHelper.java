@@ -15,7 +15,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 12;
+    private static final int DATABASE_VERSION = 14;
     // Database Name
     private static final String DATABASE_NAME = "logopedie";
 
@@ -61,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void insertPatients(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO patient (naam, testdatum, chronologischeLeeftijd, geslacht, soortAfasie, geboortedatum, scoreProductiviteit, scoreEfficientie, scoreSubstitutie, scoreCoherentie) VALUES ('Andreas Aerts', 26/12/2018, 3755, 'man', 'Afasie1', 25/02/1998, 3, 3, 2, 2);");
+        db.execSQL("INSERT INTO patient (naam, testdatum, chronologischeLeeftijd, geslacht, soortAfasie, geboortedatum, scoreProductiviteit, scoreEfficientie, scoreSubstitutie, scoreCoherentie) VALUES ('Andreas Aerts', 3755, 26/12/2018, 'man', 'Afasie1', 25/02/1998, 3, 3, 2, 2);");
     }
 
     // methode wordt uitgevoerd als database geupgrade wordt
@@ -226,8 +226,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             patient = new Patient(cursor.getLong(0),
-                    cursor.getString(1), new Date(cursor.getString(2)), (cursor.getLong(3)),
-                    cursor.getString(4), cursor.getString(5), new Date(cursor.getString(6)),
+                    cursor.getString(1), new Date(cursor.getLong(2)), (cursor.getLong(3)),
+                    cursor.getString(4), cursor.getString(5), new Date(cursor.getLong(6)),
                     cursor.getInt(7), cursor.getInt(8), cursor.getInt(9), cursor.getInt(10));
         }
         cursor.close();
@@ -244,8 +244,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Patient patient = new Patient(cursor.getLong(0),
-                cursor.getString(1), new Date(cursor.getString(2)), (cursor.getLong(3)),
-                        cursor.getString(4), cursor.getString(5), new Date(cursor.getString(6)),
+                cursor.getString(1), new Date(cursor.getLong(2)), (cursor.getLong(3)),
+                        cursor.getString(4), cursor.getString(5), new Date(cursor.getLong(6)),
                 cursor.getInt(7), cursor.getInt(8), cursor.getInt(9), cursor.getInt(10));
                 lijst.add(patient);
             } while (cursor.moveToNext());
