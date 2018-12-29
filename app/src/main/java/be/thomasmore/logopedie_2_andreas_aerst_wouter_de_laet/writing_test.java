@@ -27,6 +27,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class writing_test extends AppCompatActivity implements View.OnClickListener {
+    private DatabaseHelper db;
     private static TextView countdownTimerText;
     private static EditText minutes;
     private static Button startTimer, resetTimer;
@@ -1235,6 +1236,8 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         mScaleGestureDetector = new ScaleGestureDetector(this, new writing_test.ScaleListener());
         submitText = (Button) findViewById(R.id.btnSubmit);
 
+        db = new DatabaseHelper(this);
+
         setListeners();
 
         submitText.setOnClickListener(new View.OnClickListener() {
@@ -1357,6 +1360,10 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         float numberOfUnUsedWords = 0;
         float substitutiegedrag = 0;
         float numberOfCausaalVerbandenUsed = 0;
+        int efficiëntieScore = 0;
+        int substitutiegedragScore = 0;
+        int numberOfCausaalVerbandenUsedScore = 0;
+        int numberOfWordsUsedScore = 0;
 
         EditText descriptionImage = (EditText) findViewById(R.id.descriptionImage);
         TextView result = (TextView) findViewById(R.id.test);
@@ -1398,8 +1405,86 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             }
         }
 
+        if(0 < efficiëntie && efficiëntie <= 25)
+        {
+            efficiëntieScore = 1;
+        }
+        else if(25 < efficiëntie && efficiëntie <= 50)
+        {
+            efficiëntieScore = 2;
+        }
+        else if(50 < efficiëntie && efficiëntie <= 75)
+        {
+            efficiëntieScore = 3;
+        }
+        else if(75 < efficiëntie && efficiëntie <= 100)
+        {
+            efficiëntieScore = 4;
+        }
+        else
+        {
+            efficiëntieScore = 0;
+        }
 
-        result.setText(getString(R.string.efficiëntie) + " " + efficiëntie + "%" + "\n"
+        if(0 <= substitutiegedrag && substitutiegedrag <= 24)
+        {
+            substitutiegedragScore = 4;
+        }
+        else if(25 <= substitutiegedrag && substitutiegedrag <= 49)
+        {
+            substitutiegedragScore = 3;
+        }
+        else if(50 <= substitutiegedrag && substitutiegedrag <= 74)
+        {
+            substitutiegedragScore = 2;
+        }
+        else if(75 <= substitutiegedrag && substitutiegedrag <= 100)
+        {
+            substitutiegedragScore = 1;
+        }
+        else
+        {
+            substitutiegedragScore = 0;
+        }
+
+        if(0 < numberOfWordsUsed)
+        {
+            numberOfCausaalVerbandenUsedScore = Integer.parseInt(numberOfWordsUsed + "");
+        }
+        else
+        {
+            numberOfCausaalVerbandenUsedScore = 0;
+        }
+
+        if(0 < numberOfCausaalVerbandenUsed)
+        {
+            numberOfWordsUsedScore = Integer.parseInt(numberOfWordsUsed + "");
+        }
+        else
+        {
+            numberOfWordsUsedScore = 0;
+        }
+        Bundle extras = getIntent().getExtras();
+        if(extras == null)
+        {
+            Toast.makeText(getBaseContext(), "Gelieve een patient aan te duiden", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            long id = extras.getLong("currentPatientId");
+            Patient patient = db.getPatient(id);
+
+            patient.setScoreProductiviteit(numberOfWordsUsedScore);
+            patient.setScoreEfficientie(efficiëntieScore);
+            patient.setScoreSubstitutie(substitutiegedragScore);
+            patient.setScoreCoherentie(numberOfCausaalVerbandenUsedScore);
+
+            db.updatePatient(patient);
+
+        }
+
+        result.setText("Productiviteit " + numberOfWordsUsed + " woorden gebruikt" + "\n" +
+                getString(R.string.efficiëntie) + " " + efficiëntie + "%" + "\n"
                 + getString(R.string.substitutiegedrag) + " " + substitutiegedrag + "%" + "\n"
                 + "aantal causal verbanden " + numberOfCausaalVerbandenUsed);
     }
