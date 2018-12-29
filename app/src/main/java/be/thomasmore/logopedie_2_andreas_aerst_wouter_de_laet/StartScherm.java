@@ -160,21 +160,20 @@ public class StartScherm extends AppCompatActivity {
 
         long daysBetween = 0;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date geboortedatumT = new Date();
-        Date testdatumOmgezet = new Date();
+
         try {
-            geboortedatumT = formatter.parse(stringGeboortedatum);
-            testdatumOmgezet = formatter.parse(stringTestdatum);
+            Date geboortedatumT = formatter.parse(stringGeboortedatum);
+            Date testdatumOmgezet = formatter.parse(stringTestdatum);
             formatter.format(geboortedatumT);
             formatter.format(testdatumOmgezet);
             daysBetween = (testdatumOmgezet.getTime()-geboortedatumT.getTime())/86400000;
             daysBetween = Math.abs(daysBetween);
+            patient.setGeboortedatum(geboortedatumT);
+            patient.setTestdatum(testdatumOmgezet);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        patient.setGeboortedatum(geboortedatumT);
-        patient.setTestdatum(testdatumOmgezet);
         patient.setNaam(naamString);
         patient.setChronologischeLeeftijd(daysBetween);
         patient.setSoortAfasie(afasieString);
@@ -192,12 +191,6 @@ public class StartScherm extends AppCompatActivity {
         final List<Patient> patients = db.getPatienten();
         ArrayAdapter<Patient> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, patients);
         final ListView listViewPatienten = (ListView)findViewById(R.id.listViewPatienten);
-        final EditText naam = (EditText)findViewById(R.id.name);
-        final EditText geboortedatum = (EditText)findViewById(R.id.geboortedatum);
-        final EditText testdatum = (EditText)findViewById(R.id.testdatum);
-        final EditText chronologischeLeeftijd = (EditText)findViewById(R.id.chronologischeLeeftijd);
-        final EditText geslacht = (EditText)findViewById(R.id.geslacht);
-        final EditText afasie = (EditText)findViewById(R.id.soortAfasie);
 
         listViewPatienten.setAdapter(adapter);
         listViewPatienten.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -205,12 +198,16 @@ public class StartScherm extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 long patientID = patients.get(position).getId();
                 Patient patient = db.getPatient(patientID);
-                DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                String gebDatum = format.format(patient.getGeboortedatum());
-                String testDatumString = format.format(patient.getTestdatum());
+                EditText naam = (EditText)findViewById(R.id.name);
+                EditText geboortedatum = (EditText)findViewById(R.id.geboortedatum);
+                EditText testdatum = (EditText)findViewById(R.id.testdatum);
+                EditText chronologischeLeeftijd = (EditText)findViewById(R.id.chronologischeLeeftijd);
+                EditText geslacht = (EditText)findViewById(R.id.geslacht);
+                EditText afasie = (EditText)findViewById(R.id.soortAfasie);
+
                 naam.setText(patient.getNaam(), TextView.BufferType.EDITABLE);
-                geboortedatum.setText(gebDatum, TextView.BufferType.EDITABLE);
-                testdatum.setText(testDatumString, TextView.BufferType.EDITABLE);
+                geboortedatum.setText(patient.getGeboortedatum().toString(), TextView.BufferType.EDITABLE);
+                testdatum.setText(patient.getTestdatum().toString(), TextView.BufferType.EDITABLE);
                 chronologischeLeeftijd.setText(patient.getChronologischeLeeftijd() + "", TextView.BufferType.EDITABLE);
                 geslacht.setText(patient.getGeslacht(), TextView.BufferType.EDITABLE);
                 afasie.setText(patient.getSoortAfasie(), TextView.BufferType.EDITABLE);
