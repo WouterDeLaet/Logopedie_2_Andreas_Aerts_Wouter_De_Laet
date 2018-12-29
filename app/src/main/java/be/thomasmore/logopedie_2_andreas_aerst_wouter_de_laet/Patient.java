@@ -7,14 +7,18 @@ public class Patient {
     private String naam;
     private Date geboortedatum;
     private Date testdatum;
-    private Date chronologischeLeeftijd;
+    private long chronologischeLeeftijd;
     private String geslacht;
     private String soortAfasie;
+    private int scoreProductiviteit;
+    private int scoreEfficientie;
+    private int scoreSubstitutie;
+    private int scoreCoherentie;
 
     public Patient() {
     }
 
-    public Patient(long id, String naam, Date testdatum, Date chronologischeLeeftijd, String geslacht, String soortAfasie, Date geboortedatum) {
+    public Patient(long id, String naam, Date testdatum, long chronologischeLeeftijd, String geslacht, String soortAfasie, Date geboortedatum, int scoreProductiviteit, int scoreEfficientie, int scoreSubstitutie, int scoreCoherentie) {
         this.id = id;
         this.naam = naam;
         this.geboortedatum = geboortedatum;
@@ -22,6 +26,10 @@ public class Patient {
         this.chronologischeLeeftijd = chronologischeLeeftijd;
         this.geslacht = geslacht;
         this.soortAfasie = soortAfasie;
+        this.scoreProductiviteit = scoreProductiviteit;
+        this.scoreEfficientie = scoreEfficientie;
+        this.scoreSubstitutie = scoreSubstitutie;
+        this.scoreCoherentie = scoreCoherentie;
     }
 
     public long getId() {
@@ -56,11 +64,11 @@ public class Patient {
         this.testdatum = testdatum;
     }
 
-    public Date getChronologischeLeeftijd() {
+    public long getChronologischeLeeftijd() {
         return chronologischeLeeftijd;
     }
 
-    public void setChronologischeLeeftijd(Date chronologischeLeeftijd) {
+    public void setChronologischeLeeftijd(long chronologischeLeeftijd) {
         this.chronologischeLeeftijd = chronologischeLeeftijd;
     }
 
@@ -78,6 +86,38 @@ public class Patient {
 
     public void setSoortAfasie(String soortAfasie) {
         this.soortAfasie = soortAfasie;
+    }
+
+    public int getScoreProductiviteit() {
+        return scoreProductiviteit;
+    }
+
+    public void setScoreProductiviteit(int scoreProductiviteit) {
+        this.scoreProductiviteit = scoreProductiviteit;
+    }
+
+    public int getScoreEfficientie() {
+        return scoreEfficientie;
+    }
+
+    public void setScoreEfficientie(int scoreEfficientie) {
+        this.scoreEfficientie = scoreEfficientie;
+    }
+
+    public int getScoreSubstitutie() {
+        return scoreSubstitutie;
+    }
+
+    public void setScoreSubstitutie(int scoreSubstitutie) {
+        this.scoreSubstitutie = scoreSubstitutie;
+    }
+
+    public int getScoreCoherentie() {
+        return scoreCoherentie;
+    }
+
+    public void setScoreCoherentie(int scoreCoherentie) {
+        this.scoreCoherentie = scoreCoherentie;
     }
 
     @Override

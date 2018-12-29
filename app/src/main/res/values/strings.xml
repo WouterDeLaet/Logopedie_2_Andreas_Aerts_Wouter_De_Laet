@@ -42,4 +42,9 @@
     <string name="dialog_afasie">Soort afasie</string>
     <string name="save">Opslaan</string>
     <string name="timer">00:00:00</string>
+    <string name="dialog_datum">Selecteer datum</string>
+    <string name="productiviteit">Productiviteit</string>
+    <string name="efficientie">Efficiëntie</string>
+    <string name="substitutie">Substitutiegedrag</string>
+    <string name="coherentie">Coherentie</string>
 </resources>

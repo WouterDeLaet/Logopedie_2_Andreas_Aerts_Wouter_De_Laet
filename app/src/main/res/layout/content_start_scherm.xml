@@ -18,7 +18,145 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
-
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <TableRow>
+            <TextView
+                android:id="@+id/patient"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/dialog_name"
+                />
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/gebDatum"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/dialog_geboorteDatum"
+                />
+            <EditText
+                android:id="@+id/geboortedatum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/testDatum"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/dialog_testDatum"
+                />
+            <EditText
+                android:id="@+id/testdatum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/chronLeeftijd"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/dialog_chronologischeLeeftijd"
+                />
+            <EditText
+                android:id="@+id/chronologischeLeeftijd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/geslachtMV"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/dialog_geslacht"/>
+            <EditText
+                android:id="@+id/geslacht"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:inputType="text"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/afasie"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/dialog_afasie"/>
+            <EditText
+                android:id="@+id/soortAfasie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+        </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/scoreP"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/productiviteit"/>
+        <EditText
+            android:id="@+id/scoreProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            />
+        <TextView
+            android:id="@+id/scoreE"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/efficientie"/>
+        <EditText
+            android:id="@+id/scoreEfficientie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/scoreSub"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/substitutie"/>
+        <EditText
+            android:id="@+id/scoreSubstitutie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            />
+        <TextView
+            android:id="@+id/scoreCoh"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/coherentie"/>
+        <EditText
+            android:id="@+id/scoreCoherentie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            />
+    </TableRow>
+    </TableLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        >
         <Button
             android:id="@+id/loginBtn"
             android:layout_width="wrap_content"
@@ -29,14 +167,14 @@
             android:text="@string/dialog_loginButton" />
 
         <Button
-            android:id="@+id/patient"
+            android:id="@+id/patientAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onButtonPatientClick"
             android:padding="16dp"
             android:scaleType="fitCenter"
             android:text="@string/dialog_patient" />
-
+    </LinearLayout>
         <TextView
             android:id="@+id/user"
             android:layout_width="wrap_content"

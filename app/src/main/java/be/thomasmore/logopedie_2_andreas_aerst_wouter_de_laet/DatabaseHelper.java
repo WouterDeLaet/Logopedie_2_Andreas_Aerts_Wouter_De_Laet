@@ -15,7 +15,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 12;
     // Database Name
     private static final String DATABASE_NAME = "logopedie";
 
@@ -42,13 +42,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "naam TEXT," +
                 "testdatum DATE," +
-                "chronologischeLeeftijd DATE,"+
+                "chronologischeLeeftijd int,"+
                 "geslacht TEXT,"+
                 "soortAfasie TEXT,"+
-                "geboortedatum DATE)";
+                "geboortedatum DATE," +
+                "scoreProductiviteit int," +
+                "scoreEfficientie int," +
+                "scoreSubstitutie int," +
+                "scoreCoherentie int)";
         db.execSQL(CREATE_TABLE_PATIENT);
 
         insertLogopedists(db);
+        insertPatients(db);
     }
 
     private void insertLogopedists(SQLiteDatabase db) {
@@ -56,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void insertPatients(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO patient (naam, testdatum, chronologischeLeeftijd, geslacht, soortAfasie, geboortedatum) VALUES ('Andreas Aerts', 26/12/2018, (26/12/2018) - (25/02/1998), 'man', 'Afasie1', 25/02/1998);");
+        db.execSQL("INSERT INTO patient (naam, testdatum, chronologischeLeeftijd, geslacht, soortAfasie, geboortedatum, scoreProductiviteit, scoreEfficientie, scoreSubstitutie, scoreCoherentie) VALUES ('Andreas Aerts', 26/12/2018, 3755, 'man', 'Afasie1', 25/02/1998, 3, 3, 2, 2);");
     }
 
     // methode wordt uitgevoerd als database geupgrade wordt
@@ -151,9 +156,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("naam", patient.getNaam());
         values.put("testdatum", patient.getTestdatum().toString());
         values.put("geboortedatum", patient.getGeboortedatum().toString());
-        values.put("chronologische_leeftijd", patient.getChronologischeLeeftijd().toString());
+        values.put("chronologischeLeeftijd", patient.getChronologischeLeeftijd());
         values.put("geslacht", patient.getGeslacht());
         values.put("soortAfasie", patient.getSoortAfasie());
+        values.put("scoreProductiviteit", patient.getScoreProductiviteit());
+        values.put("scoreEfficientie", patient.getScoreEfficientie());
+        values.put("scoreSubstitutie", patient.getScoreSubstitutie());
+        values.put("scoreCoherentie", patient.getScoreCoherentie());
 
         long id = db.insert("patient", null, values);
         db.close();
@@ -167,10 +176,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("naam", patient.getNaam());
         values.put("testdatum", patient.getTestdatum().toString());
-        values.put("chronologischeLeeftijd", patient.getChronologischeLeeftijd().toString());
+        values.put("chronologischeLeeftijd", patient.getChronologischeLeeftijd());
         values.put("geslacht", patient.getGeslacht());
         values.put("soortAfasie", patient.getSoortAfasie());
         values.put("geboortedatum", patient.getGeboortedatum().toString());
+        values.put("scoreProductiviteit", patient.getScoreProductiviteit());
+        values.put("scoreEfficientie", patient.getScoreEfficientie());
+        values.put("scoreSubstitutie", patient.getScoreSubstitutie());
+        values.put("scoreCoherentie", patient.getScoreCoherentie());
 
         int numrows = db.update(
                 "patient",
@@ -196,12 +209,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // query-methode
-    /*public Logopedist getPatient(long id) {
+    public Patient getPatient(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(
                 "patient",      // tabelnaam
-                new String[] { "id", "naam", "testdatum", "geboortedatum","chronologischeLeeftijd","geslacht","soortAfasie" }, // kolommen
+                new String[] { "id", "naam", "testdatum", "geboortedatum","chronologischeLeeftijd","geslacht","soortAfasie", "scoreProductiviteit", "scoreEfficientie", "scoreSubstitutie", "scoreCoherentie" }, // kolommen
                 "id = ?",  // selectie
                 new String[] { String.valueOf(id)}, // selectieparameters
                 null,           // groupby
@@ -213,13 +226,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             patient = new Patient(cursor.getLong(0),
-                    cursor.getString(1), cursor.getLong(2)), Date.parse(cursor.getString(3)),
-                    Date.parse(cursor.getString(4)), cursor.getString(5), cursor.getString(6));
+                    cursor.getString(1), new Date(cursor.getString(2)), (cursor.getLong(3)),
+                    cursor.getString(4), cursor.getString(5), new Date(cursor.getString(6)),
+                    cursor.getInt(7), cursor.getInt(8), cursor.getInt(9), cursor.getInt(10));
         }
         cursor.close();
         db.close();
         return patient;
-    }*/
+    }
 
     public List<Patient> getPatienten() {
         List<Patient> lijst = new ArrayList<Patient>();
@@ -230,8 +244,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Patient patient = new Patient(cursor.getLong(0),
-                cursor.getString(1), new Date(cursor.getString(2)), new Date(cursor.getLong(3)),
-                        cursor.getString(4), cursor.getString(5), new Date(cursor.getString(6)));
+                cursor.getString(1), new Date(cursor.getString(2)), (cursor.getLong(3)),
+                        cursor.getString(4), cursor.getString(5), new Date(cursor.getString(6)),
+                cursor.getInt(7), cursor.getInt(8), cursor.getInt(9), cursor.getInt(10));
                 lijst.add(patient);
             } while (cursor.moveToNext());
         }

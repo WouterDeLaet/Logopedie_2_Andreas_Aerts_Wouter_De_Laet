@@ -1,9 +1,15 @@
 package be.thomasmore.logopedie_2_andreas_aerst_wouter_de_laet;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -21,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -35,6 +42,7 @@ import java.util.List;
 
 public class StartScherm extends AppCompatActivity {
     private DatabaseHelper db;
+    private int year, month, day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,26 +107,6 @@ public class StartScherm extends AppCompatActivity {
         dialog.show();
     }
 
-    private void showPatientDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-
-        final View viewInflater = inflater.inflate(R.layout.dialog_patient, null);
-        builder.setTitle(R.string.dialog_signin)
-                .setIcon(R.drawable.login)
-                .setView(viewInflater)
-                .setPositiveButton(R.string.dialog_aanmelden, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        save();
-                    }
-                })
-                .setNegativeButton(R.string.dialog_annuleer, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
 
     private void checkLogin(String login, String passwoord) {
         Logopedist logopedist = db.getLogopedist(login, passwoord);
@@ -149,24 +137,52 @@ public class StartScherm extends AppCompatActivity {
     }
 
     public void onButtonPatientClick(View v) {
-        showPatientDialog();
-    }
-
-    public void save() {
+        Patient patient = new Patient();
         EditText naam = (EditText)findViewById(R.id.name);
         EditText geboortedatum = (EditText)findViewById(R.id.geboortedatum);
         EditText testdatum = (EditText)findViewById(R.id.testdatum);
         EditText chronologischeLeeftijd = (EditText)findViewById(R.id.chronologischeLeeftijd);
         EditText geslacht = (EditText)findViewById(R.id.geslacht);
         EditText afasie = (EditText)findViewById(R.id.soortAfasie);
+        EditText productiviteit = (EditText)findViewById(R.id.scoreProduct);
+        EditText efficientie = (EditText)findViewById(R.id.scoreEfficientie);
+        EditText substitutiegedrag = (EditText)findViewById(R.id.scoreSubstitutie);
+        EditText coherentie = (EditText)findViewById(R.id.scoreCoherentie);
+        String stringGeboortedatum = geboortedatum.getText().toString();
+        String stringTestdatum = testdatum.getText().toString();
+        String naamString = naam.getText().toString();
+        String afasieString = afasie.getText().toString();
+        String geslachtString = geslacht.getText().toString();
+        String productiviteitString = productiviteit.getText().toString();
+        String efficientieString = efficientie.getText().toString();
+        String substitutieString = substitutiegedrag.getText().toString();
+        String coherentieString = coherentie.getText().toString();
 
-        Patient patient = new Patient();
-        patient.setNaam(naam.getText().toString());
-        patient.setGeboortedatum((Date) geboortedatum.getText());
-        patient.setTestdatum((Date) testdatum.getText());
-        patient.setChronologischeLeeftijd((Date) chronologischeLeeftijd.getText());
-        patient.setSoortAfasie(afasie.getText().toString());
-        patient.setGeslacht(geslacht.getText().toString());
+        long daysBetween = 0;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date geboortedatumT = new Date();
+        Date testdatumOmgezet = new Date();
+        try {
+            geboortedatumT = formatter.parse(stringGeboortedatum);
+            testdatumOmgezet = formatter.parse(stringTestdatum);
+            formatter.format(geboortedatumT);
+            formatter.format(testdatumOmgezet);
+            daysBetween = (testdatumOmgezet.getTime()-geboortedatumT.getTime())/86400000;
+            daysBetween = Math.abs(daysBetween);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        patient.setGeboortedatum(geboortedatumT);
+        patient.setTestdatum(testdatumOmgezet);
+        patient.setNaam(naamString);
+        patient.setChronologischeLeeftijd(daysBetween);
+        patient.setSoortAfasie(afasieString);
+        patient.setGeslacht(geslachtString);
+        patient.setScoreProductiviteit(Integer.parseInt(productiviteitString));
+        patient.setScoreEfficientie(Integer.parseInt(efficientieString));
+        patient.setScoreSubstitutie(Integer.parseInt(substitutieString));
+        patient.setScoreCoherentie(Integer.parseInt(coherentieString));
         db.insertPatient(patient);
 
         leesPatienten();
@@ -174,19 +190,31 @@ public class StartScherm extends AppCompatActivity {
 
     private void leesPatienten() {
         final List<Patient> patients = db.getPatienten();
-        String selectedItems = "";
-
         ArrayAdapter<Patient> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, patients);
-
         final ListView listViewPatienten = (ListView)findViewById(R.id.listViewPatienten);
+        final EditText naam = (EditText)findViewById(R.id.name);
+        final EditText geboortedatum = (EditText)findViewById(R.id.geboortedatum);
+        final EditText testdatum = (EditText)findViewById(R.id.testdatum);
+        final EditText chronologischeLeeftijd = (EditText)findViewById(R.id.chronologischeLeeftijd);
+        final EditText geslacht = (EditText)findViewById(R.id.geslacht);
+        final EditText afasie = (EditText)findViewById(R.id.soortAfasie);
+
         listViewPatienten.setAdapter(adapter);
         listViewPatienten.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                long patientID = patients.get(position).getId();
+                Patient patient = db.getPatient(patientID);
+                DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                String gebDatum = format.format(patient.getGeboortedatum());
+                String testDatumString = format.format(patient.getTestdatum());
+                naam.setText(patient.getNaam(), TextView.BufferType.EDITABLE);
+                geboortedatum.setText(gebDatum, TextView.BufferType.EDITABLE);
+                testdatum.setText(testDatumString, TextView.BufferType.EDITABLE);
+                chronologischeLeeftijd.setText(patient.getChronologischeLeeftijd() + "", TextView.BufferType.EDITABLE);
+                geslacht.setText(patient.getGeslacht(), TextView.BufferType.EDITABLE);
+                afasie.setText(patient.getSoortAfasie(), TextView.BufferType.EDITABLE);
             }
         });
-
-        Log.i("lijst", patients.toString());
     }
 }
