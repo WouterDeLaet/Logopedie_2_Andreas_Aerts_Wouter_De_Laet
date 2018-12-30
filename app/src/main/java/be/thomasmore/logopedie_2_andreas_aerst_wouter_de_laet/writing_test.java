@@ -22,9 +22,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 
 public class writing_test extends AppCompatActivity implements View.OnClickListener {
     private DatabaseHelper db;
@@ -1473,11 +1481,15 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         {
             long id = extras.getLong("currentPatientId");
             Patient patient = db.getPatient(id);
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date today = Calendar.getInstance().getTime();
+            String date = format.format(today);
 
             patient.setScoreProductiviteit(numberOfWordsUsedScore);
             patient.setScoreEfficientie(efficiëntieScore);
             patient.setScoreSubstitutie(substitutiegedragScore);
             patient.setScoreCoherentie(numberOfCausaalVerbandenUsedScore);
+            patient.setTestdatum(date);
 
             db.updatePatient(patient);
 
