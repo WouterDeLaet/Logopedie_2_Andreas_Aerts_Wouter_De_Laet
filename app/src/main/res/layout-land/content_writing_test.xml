@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".writing_test"
+    tools:showIn="@layout/activity_writing_test">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".writing_test"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <ScrollView
+            android:layout_width="200sp"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btnSpeakContainer"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp">
+
+            <EditText
+                android:id="@+id/descriptionImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </ScrollView>
+        <LinearLayout
+            android:id="@+id/btnSpeakContainer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:weightSum="10"
+            android:background="#f5f5f5"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="20dp">
+            <TextView
+                android:id="@+id/test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/enterMinutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/startTimer"
+                android:hint="@string/enter_minutes"
+                android:padding="10dp"
+                android:maxLength="4"
+                android:inputType="number"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textColorHint="#9E9E9E"
+                />
+            <Button
+                android:id="@+id/startTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:padding="5dp"
+                android:textColor="#ffffff"
+                android:textSize="13sp"
+                android:text="@string/start_timer" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/countdownText"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp"
+                android:text="@string/timer"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"/>
+            <Button
+                android:id="@+id/resetTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"
+                android:textColor="#ffffff"
+                android:textSize="13sp"
+                android:text="@string/reset_timer" />
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/submit"
+                android:padding="16dp"
+                android:scaleType="fitCenter"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:weightSum="10">
+            <ImageView
+                android:id="@+id/situatieplaat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/situatieplaat" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -1486,7 +1486,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         result.setText("Productiviteit " + numberOfWordsUsed + " woorden gebruikt" + "\n" +
                 getString(R.string.efficiëntie) + " " + efficiëntie + "%" + "\n"
                 + getString(R.string.substitutiegedrag) + " " + substitutiegedrag + "%" + "\n"
-                + "aantal causal verbanden " + numberOfCausaalVerbandenUsed);
+                + "aantal causale verbanden " + numberOfCausaalVerbandenUsed);
     }
 
     public int howManyTimesIsTheWordUsed(String descriptionSplitted [], String listOfWords [], int word)

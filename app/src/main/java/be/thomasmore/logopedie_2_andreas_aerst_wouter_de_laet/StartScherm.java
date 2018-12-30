@@ -181,10 +181,31 @@ public class StartScherm extends AppCompatActivity {
         patient.setChronologischeLeeftijd(daysBetween);
         patient.setSoortAfasie(afasieString);
         patient.setGeslacht(geslachtString);
-        patient.setScoreProductiviteit(Integer.parseInt(productiviteitString));
-        patient.setScoreEfficientie(Integer.parseInt(efficientieString));
-        patient.setScoreSubstitutie(Integer.parseInt(substitutieString));
-        patient.setScoreCoherentie(Integer.parseInt(coherentieString));
+
+        if (productiviteitString == "" || productiviteitString == null) {
+            patient.setScoreProductiviteit(0);
+        } else {
+            patient.setScoreProductiviteit(Integer.parseInt(productiviteitString));
+        }
+
+        if (efficientieString == "" || productiviteitString == null) {
+            patient.setScoreEfficientie(0);
+        } else {
+            patient.setScoreEfficientie(Integer.parseInt(efficientieString));
+        }
+
+        if (substitutieString == "" || substitutieString == null) {
+            patient.setScoreSubstitutie(0);
+        } else {
+            patient.setScoreSubstitutie(Integer.parseInt(substitutieString));
+        }
+
+        if (coherentieString == "" || coherentieString == null) {
+            patient.setScoreCoherentie(0);
+        }else {
+            patient.setScoreCoherentie(Integer.parseInt(coherentieString));
+        }
+
         db.insertPatient(patient);
 
         leesPatienten();

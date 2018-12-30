@@ -5,7 +5,7 @@
     <string name="dialog_username">email</string>
     <string name="tittle_app">Beschrijven situatieplaat CAT-NL</string>
     <string name="dialog_password">wachtwoord</string>
-    <string name="submit">Submit text</string>
+    <string name="submit">Bereken scores</string>
     <string name="efficiëntie">De efficiëntie is</string>
     <string name="substitutiegedrag">Het substitutiegedrag is</string>
     <string name="dialog_ok">OK</string>
@@ -45,4 +45,5 @@
     <string name="efficientie">Efficiëntie</string>
     <string name="substitutie">Substitutiegedrag</string>
     <string name="coherentie">Coherentie</string>
+    <string name="dialog_list">Kies patiënt:</string>
 </resources>
