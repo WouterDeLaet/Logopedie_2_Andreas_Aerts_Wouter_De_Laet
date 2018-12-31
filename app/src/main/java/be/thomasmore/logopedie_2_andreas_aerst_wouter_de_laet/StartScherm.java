@@ -9,6 +9,7 @@ import android.os.Bundle;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -38,12 +39,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class StartScherm extends AppCompatActivity {
     private DatabaseHelper db;
-    private int year, month, day;
     private long currentPatientId;
 
     @Override
@@ -161,50 +162,61 @@ public class StartScherm extends AppCompatActivity {
         String substitutieString = substitutiegedrag.getText().toString();
         String coherentieString = coherentie.getText().toString();
 
-        long daysBetween = 0;
+        int daysBetween = 0;
 
-        try {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date geboortedatumT = formatter.parse(stringGeboortedatum);
-            Date testdatumOmgezet = formatter.parse(stringTestdatum);
-            formatter.format(geboortedatumT);
-            formatter.format(testdatumOmgezet);
-            daysBetween = (testdatumOmgezet.getTime()-geboortedatumT.getTime())/86400000;
-            daysBetween = Math.abs(daysBetween);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (testdatum.getText().toString().matches("")) {
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date today = Calendar.getInstance().getTime();
+            String date = format.format(today);
+            patient.setTestdatum(date);
+            stringTestdatum = date;
+        } else {
+            patient.setTestdatum(stringTestdatum);
         }
 
-        patient.setNaam(naamString);
-        patient.setGeboortedatum(stringGeboortedatum);
-        patient.setTestdatum(stringTestdatum);
-        patient.setChronologischeLeeftijd(daysBetween);
-        patient.setSoortAfasie(afasieString);
-        patient.setGeslacht(geslachtString);
+        if (chronologischeLeeftijd.getText().toString().matches("") || chronologischeLeeftijd.getText().toString().matches("0")) {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-        if (productiviteitString == "" || productiviteitString == null) {
+            try {
+                Date geboortedatumT = formatter.parse(stringGeboortedatum);
+                Date testdatumOmgezet = formatter.parse(stringTestdatum);
+                daysBetween = getDifferenceDays(geboortedatumT, testdatumOmgezet);
+                Log.i("daysBetween", daysBetween + "");
+            } catch (ParseException e) {
+                Log.i("daysBetween", e.toString());
+                toon("Gelieve een juiste datum op te geven van het formaat dd/mm/yyyy");
+            }
+        }
+
+        if (productiviteitString.matches("") || productiviteitString == null) {
             patient.setScoreProductiviteit(0);
         } else {
             patient.setScoreProductiviteit(Integer.parseInt(productiviteitString));
         }
 
-        if (efficientieString == "" || productiviteitString == null) {
+        if (efficientieString.matches("") || productiviteitString == null) {
             patient.setScoreEfficientie(0);
         } else {
             patient.setScoreEfficientie(Integer.parseInt(efficientieString));
         }
 
-        if (substitutieString == "" || substitutieString == null) {
+        if (substitutieString.matches("") || substitutieString == null) {
             patient.setScoreSubstitutie(0);
         } else {
             patient.setScoreSubstitutie(Integer.parseInt(substitutieString));
         }
 
-        if (coherentieString == "" || coherentieString == null) {
+        if (coherentieString.matches("") || coherentieString == null) {
             patient.setScoreCoherentie(0);
         }else {
             patient.setScoreCoherentie(Integer.parseInt(coherentieString));
         }
+
+        patient.setNaam(naamString);
+        patient.setGeboortedatum(stringGeboortedatum);
+        patient.setChronologischeLeeftijd(daysBetween);
+        patient.setSoortAfasie(afasieString);
+        patient.setGeslacht(geslachtString);
 
         db.insertPatient(patient);
 
@@ -248,26 +260,41 @@ public class StartScherm extends AppCompatActivity {
         });
     }
 
-    public void afterTextChanged(Editable s) {
+    public void onRemoveClick(View v) {
+        db.deletePatient(currentPatientId);
+        clearAllTextfields();
+        leesPatienten();
+    }
+
+    private void clearAllTextfields() {
+        EditText naam = (EditText)findViewById(R.id.name);
         EditText geboortedatum = (EditText)findViewById(R.id.geboortedatum);
         EditText testdatum = (EditText)findViewById(R.id.testdatum);
-        String stringGeboortedatum = geboortedatum.getText().toString();
-        String stringTestdatum = testdatum.getText().toString();
         EditText chronologischeLeeftijd = (EditText)findViewById(R.id.chronologischeLeeftijd);
-        long daysBetween = 0;
+        EditText geslacht = (EditText)findViewById(R.id.geslacht);
+        EditText afasie = (EditText)findViewById(R.id.soortAfasie);
+        EditText productiviteit = (EditText)findViewById(R.id.scoreProduct);
+        EditText efficientie = (EditText)findViewById(R.id.scoreEfficientie);
+        EditText substitutiegedrag = (EditText)findViewById(R.id.scoreSubstitutie);
+        EditText coherentie = (EditText)findViewById(R.id.scoreCoherentie);
 
-        try {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date geboortedatumT = formatter.parse(stringGeboortedatum);
-            Date testdatumOmgezet = formatter.parse(stringTestdatum);
-            formatter.format(geboortedatumT);
-            formatter.format(testdatumOmgezet);
-            daysBetween = (testdatumOmgezet.getTime() - geboortedatumT.getTime()) / 86400000;
-            daysBetween = Math.abs(daysBetween);
-        }catch (ParseException e) {
-            e.printStackTrace();
-        }
+        naam.setText("");
+        geboortedatum.setText("");
+        testdatum.setText("");
+        chronologischeLeeftijd.setText("");
+        geslacht.setText("");
+        afasie.setText("");
+        productiviteit.setText("");
+        efficientie.setText("");
+        substitutiegedrag.setText("");
+        coherentie.setText("");
+    }
 
-        chronologischeLeeftijd.setText(daysBetween + "");
+    public int getDifferenceDays(Date d1, Date d2) {
+        int daysdiff = 0;
+        long diff = d2.getTime() - d1.getTime();
+        long diffDays = diff / (24 * 60 * 60 * 1000) + 1;
+        daysdiff = (int) diffDays;
+        return daysdiff;
     }
 }

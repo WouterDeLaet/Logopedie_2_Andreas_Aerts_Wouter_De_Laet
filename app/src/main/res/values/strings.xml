@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Logopedie_2_Andreas_Aerst_Wouter_De_Laet</string>
+    <string name="app_name">CAT-NL</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_start_scherm">StartScherm</string>
     <string name="dialog_username">email</string>
@@ -32,7 +32,7 @@
     <string name="dialog_patient">Maak patiënt aan</string>
     <string name="dialog_name">Naam</string>
     <string name="dialog_geboorteDatum">Geboortedatum</string>
-    <string name="dialog_testDatum">Testdatum</string>
+    <string name="dialog_testDatum">(Vorige) testdatum</string>
     <string name="dialog_radio0">Man</string>
     <string name="dialog_radio1">Vrouw</string>
     <string name="dialog_geslacht">Geslacht</string>
@@ -46,4 +46,5 @@
     <string name="substitutie">Substitutiegedrag</string>
     <string name="coherentie">Coherentie</string>
     <string name="dialog_list">Kies patiënt:</string>
+    <string name="patientRemove">Verwijder</string>
 </resources>

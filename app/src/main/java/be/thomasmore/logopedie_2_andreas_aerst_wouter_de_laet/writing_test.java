@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -1491,6 +1492,20 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             patient.setScoreCoherentie(numberOfCausaalVerbandenUsedScore);
             patient.setTestdatum(date);
 
+            int daysBetween = 0;
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+            try {
+                Date geboortedatumT = formatter.parse(patient.getGeboortedatum());
+                Date testdatumOmgezet = formatter.parse(patient.getTestdatum());
+                daysBetween = getDifferenceDays(geboortedatumT, testdatumOmgezet);
+                Log.i("daysBetween", daysBetween + "");
+            } catch (ParseException e) {
+                Log.i("daysBetween", e.toString());
+            }
+
+            patient.setChronologischeLeeftijd(daysBetween);
+
             db.updatePatient(patient);
 
         }
@@ -1513,5 +1528,13 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         }
 
         return numberOfWordsUsed;
+    }
+
+    public int getDifferenceDays(Date d1, Date d2) {
+        int daysdiff = 0;
+        long diff = d2.getTime() - d1.getTime();
+        long diffDays = diff / (24 * 60 * 60 * 1000) + 1;
+        daysdiff = (int) diffDays;
+        return daysdiff;
     }
 }

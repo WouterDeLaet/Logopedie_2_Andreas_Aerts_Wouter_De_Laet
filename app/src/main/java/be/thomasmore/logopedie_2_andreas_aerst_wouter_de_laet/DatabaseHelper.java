@@ -15,7 +15,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 18;
+    private static final int DATABASE_VERSION = 19;
     // Database Name
     private static final String DATABASE_NAME = "logopedie";
 
@@ -154,8 +154,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put("naam", patient.getNaam());
-        values.put("testdatum", patient.getTestdatum().toString());
-        values.put("geboortedatum", patient.getGeboortedatum().toString());
+        values.put("testdatum", patient.getTestdatum());
+        values.put("geboortedatum", patient.getGeboortedatum());
         values.put("chronologischeLeeftijd", patient.getChronologischeLeeftijd());
         values.put("geslacht", patient.getGeslacht());
         values.put("soortAfasie", patient.getSoortAfasie());
@@ -175,11 +175,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put("naam", patient.getNaam());
-        values.put("testdatum", patient.getTestdatum().toString());
+        values.put("testdatum", patient.getTestdatum());
         values.put("chronologischeLeeftijd", patient.getChronologischeLeeftijd());
         values.put("geslacht", patient.getGeslacht());
         values.put("soortAfasie", patient.getSoortAfasie());
-        values.put("geboortedatum", patient.getGeboortedatum().toString());
+        values.put("geboortedatum", patient.getGeboortedatum());
         values.put("scoreProductiviteit", patient.getScoreProductiviteit());
         values.put("scoreEfficientie", patient.getScoreEfficientie());
         values.put("scoreSubstitutie", patient.getScoreSubstitutie());

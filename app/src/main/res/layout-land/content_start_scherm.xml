@@ -191,6 +191,13 @@
             android:padding="16dp"
             android:scaleType="fitCenter"
             android:text="@string/dialog_patient" />
+        <Button
+            android:id="@+id/patientDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRemoveClick"
+            android:scaleType="fitCenter"
+            android:text="@string/patientRemove"/>
     </LinearLayout>
         <TextView
             android:id="@+id/user"

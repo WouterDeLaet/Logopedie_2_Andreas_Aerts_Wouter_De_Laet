@@ -73,12 +73,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mVoiceInputTv = (EditText) findViewById(R.id.voiceInput);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        DrawerUtil.getDrawer(this,toolbar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getPermissionToRecordAudio();
         }
