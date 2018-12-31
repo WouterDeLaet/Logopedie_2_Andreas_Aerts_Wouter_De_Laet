@@ -54,8 +54,6 @@ public class StartScherm extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        DrawerUtil.getDrawer(this,toolbar);
-
         db = new DatabaseHelper(this);
         leesPatienten();
 
@@ -176,14 +174,11 @@ public class StartScherm extends AppCompatActivity {
 
         if (chronologischeLeeftijd.getText().toString().matches("") || chronologischeLeeftijd.getText().toString().matches("0")) {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
             try {
                 Date geboortedatumT = formatter.parse(stringGeboortedatum);
                 Date testdatumOmgezet = formatter.parse(stringTestdatum);
                 daysBetween = getDifferenceDays(geboortedatumT, testdatumOmgezet);
-                Log.i("daysBetween", daysBetween + "");
             } catch (ParseException e) {
-                Log.i("daysBetween", e.toString());
                 toon("Gelieve een juiste datum op te geven van het formaat dd/mm/yyyy");
             }
         }

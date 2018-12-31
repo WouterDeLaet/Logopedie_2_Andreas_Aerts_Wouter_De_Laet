@@ -1499,9 +1499,8 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
                 Date geboortedatumT = formatter.parse(patient.getGeboortedatum());
                 Date testdatumOmgezet = formatter.parse(patient.getTestdatum());
                 daysBetween = getDifferenceDays(geboortedatumT, testdatumOmgezet);
-                Log.i("daysBetween", daysBetween + "");
             } catch (ParseException e) {
-                Log.i("daysBetween", e.toString());
+                e.printStackTrace();
             }
 
             patient.setChronologischeLeeftijd(daysBetween);
