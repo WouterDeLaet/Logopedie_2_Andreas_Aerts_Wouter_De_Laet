@@ -1429,7 +1429,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
 
         efficiëntie = (numberOfWordsUsed / Float.parseFloat(woordenLijstEfficiëntie.length + "")) * 100;
 
-        substitutiegedrag = (numberOfUnUsedWords / Float.parseFloat(woordenlijstSubstitutiegedrag.length + "")) * 100;
+        substitutiegedrag = (numberOfUnUsedWords / Float.parseFloat(description.length() + "")) * 100;
 
         for(int i = 0; i < woordenlijstCausaalVerband.length; i ++)
 
