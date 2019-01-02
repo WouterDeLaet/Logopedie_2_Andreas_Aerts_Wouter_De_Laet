@@ -61,21 +61,45 @@ public class StartScherm extends AppCompatActivity {
 
     public void goToSpeechToText_onClick(MenuItem m)
     {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        if(currentPatientId <= 0)
+        {
+            Toast.makeText(getBaseContext(), "Gelieve een patient aan te duiden", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("currentPatientId", currentPatientId);
+            startActivity(intent);
+        }
     }
 
     public void goToWritingTest_onClick(MenuItem m)
     {
-        Intent intent = new Intent(this, writing_test.class);
-        intent.putExtra("currentPatientId", currentPatientId);
-        startActivity(intent);
+        if(currentPatientId <= 0)
+        {
+            Toast.makeText(getBaseContext(), "Gelieve een patient aan te duiden", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Intent intent = new Intent(this, writing_test.class);
+            intent.putExtra("currentPatientId", currentPatientId);
+            startActivity(intent);
+        }
     }
 
     public void goToStartScreen_onClick(MenuItem m)
     {
-        Intent intent = new Intent(this, StartScherm.class);
-        startActivity(intent);
+        if(currentPatientId <= 0)
+        {
+            Toast.makeText(getBaseContext(), "Gelieve een patient aan te duiden", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Intent intent = new Intent(this, StartScherm.class);
+            intent.putExtra("currentPatientId", currentPatientId);
+            startActivity(intent);
+        }
+
     }
 
     @Override

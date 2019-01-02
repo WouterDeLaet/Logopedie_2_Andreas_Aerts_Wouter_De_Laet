@@ -96,20 +96,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void goToWritingTest_onClick(MenuItem m)
     {
-        Intent intent = new Intent(this, writing_test.class);
-        startActivity(intent);
+        Bundle extras = getIntent().getExtras();
+        long currentPatientId = extras.getLong("currentPatientId");
+        if(currentPatientId <= 0)
+        {
+            Toast.makeText(getBaseContext(), "Gelieve een patient aan te duiden", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent intent = new Intent(this, writing_test.class);
+            startActivity(intent);
+        }
     }
 
     public void goToSpeechToText_onClick(MenuItem m)
     {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        Bundle extras = getIntent().getExtras();
+        long currentPatientId = extras.getLong("currentPatientId");
+        if(currentPatientId <= 0)
+        {
+            Toast.makeText(getBaseContext(), "Gelieve een patient aan te duiden", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void goToStartScreen_onClick(MenuItem m)
     {
-        Intent intent = new Intent(this, StartScherm.class);
-        startActivity(intent);
+        Bundle extras = getIntent().getExtras();
+        long currentPatientId = extras.getLong("currentPatientId");
+        if(currentPatientId <= 0)
+        {
+            Toast.makeText(getBaseContext(), "Gelieve een patient aan te duiden", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent intent = new Intent(this, StartScherm.class);
+            startActivity(intent);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
