@@ -1463,7 +1463,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
 
         totalNumberOfWords = descriptionSplittedBySpace.length;
 
-        efficiëntie = (numberOfWordsUsed / totalNumberOfWords) * 100;
+        efficiëntie = (numberOfWordsUsed / Float.parseFloat(totalNumberOfWords + "")) * 100;
 
         if(numberOfUnUsedWords == 0)
         {
@@ -1471,7 +1471,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         }
         else
         {
-            substitutiegedrag = (numberOfUnUsedWords / totalNumberOfWords) * 100;
+            substitutiegedrag = (numberOfUnUsedWords / Float.parseFloat(totalNumberOfWords + "")) * 100;
         }
 
 
