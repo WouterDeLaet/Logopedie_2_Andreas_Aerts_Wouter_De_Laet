@@ -1399,6 +1399,8 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         int numberOfCausaalVerbandenUsedScore = 0;
         int numberOfWordsUsedScore = 0;
         int totalNumberOfWords = 0;
+        int FUBAR = 0;
+        int test = 0;
 
         EditText descriptionImage = (EditText) findViewById(R.id.descriptionImage);
         TextView result = (TextView) findViewById(R.id.test);
@@ -1409,13 +1411,25 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         String descriptionSplittedBySpace [] = description.split(" ");
         String descriptionSplittedByPoint [] = description.split(".");
 
-        for(int i = 0; i < woordenLijstEfficiëntie.length; i++)
+        for(int i = 0; i < descriptionSplittedBySpace.length; i++)
         {
-            if(description.equals(woordenLijstEfficiëntie[i].toLowerCase()))
+            for(int j = 0; j < woordenLijstEfficiëntie.length; j++)
             {
-                numberOfWordsUsed += howManyTimesIsTheWordUsed(descriptionSplittedBySpace, woordenLijstEfficiëntie, i);
+                if(descriptionSplittedBySpace[i].equals(woordenLijstEfficiëntie[j].toLowerCase()))
+                {
+                    numberOfWordsUsed ++;
+                }
             }
         }
+//        for(int i = 0; i < woordenLijstEfficiëntie.length; i++)
+//        {
+//            if(description.equals(woordenLijstEfficiëntie[i].toLowerCase()))
+//            {
+//                FUBAR ++;
+//                numberOfWordsUsed += howManyTimesIsTheWordUsed(descriptionSplittedBySpace, woordenLijstEfficiëntie, i);
+//            }
+//            test ++;
+//        }
 
         for(int i = 0; i < descriptionSplittedBySpace.length; i++)
         {
