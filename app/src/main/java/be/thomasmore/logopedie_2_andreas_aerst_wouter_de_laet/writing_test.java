@@ -1433,7 +1433,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
 
         for(int i = 0; i < descriptionSplittedBySpace.length; i++)
         {
-//            numberOfWordsUsedSubstitutie = 0;
+            numberOfWordsUsedSubstitutie = 0;
             for(int j = 0; j < woordenlijstSubstitutiegedrag.length; j ++)
             {
                 if(descriptionSplittedBySpace[i].equals(woordenlijstSubstitutiegedrag[j].toLowerCase()))
