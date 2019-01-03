@@ -59,7 +59,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
                     "speelgoed",
                     "Boeken",
                     "Boekenplank",
-                    "Splank",
+                    "plank",
                     "rek",
                     "Bokaal",
                     "visbokaal",
@@ -1427,7 +1427,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        efficiëntie = (numberOfWordsUsed / Float.parseFloat(woordenLijstEfficiëntie.length + "")) * 100;
+        efficiëntie = (numberOfWordsUsed / Float.parseFloat(description.length() + "")) * 100;
 
         substitutiegedrag = (numberOfUnUsedWords / Float.parseFloat(description.length() + "")) * 100;
 
