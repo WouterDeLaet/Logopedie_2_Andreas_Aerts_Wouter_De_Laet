@@ -1451,7 +1451,15 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        numberOfWordsUsed --;
+
+        if(numberOfWordsUsed <= 0)
+        {
+
+        }
+        else
+        {
+            numberOfWordsUsed --;
+        }
 
         totalNumberOfWords = descriptionSplittedBySpace.length;
 
