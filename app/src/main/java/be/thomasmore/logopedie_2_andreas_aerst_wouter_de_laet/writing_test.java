@@ -1433,18 +1433,18 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
 
         for(int i = 0; i < descriptionSplittedBySpace.length; i++)
         {
-            numberOfWordsUsedSubstitutie = 0;
+//            numberOfWordsUsedSubstitutie = 0;
             for(int j = 0; j < woordenlijstSubstitutiegedrag.length; j ++)
             {
-                if(description.equals(woordenlijstSubstitutiegedrag[i].toLowerCase()))
+                if(descriptionSplittedBySpace[i].equals(woordenlijstSubstitutiegedrag[j].toLowerCase()))
                 {
                     numberOfWordsUsedSubstitutie ++;
                 }
             }
 
-            for(int k = 0; k < woordenlijstSubstitutiegedrag.length; k ++)
+            for(int k = 0; k < woordenLijstEfficiëntie.length; k++)
             {
-                if(description.equals(woordenLijstEfficiëntie[i].toLowerCase()))
+                if(descriptionSplittedBySpace[i].equals(woordenLijstEfficiëntie[k].toLowerCase()))
                 {
                     numberOfWordsUsedSubstitutie ++;
                 }
@@ -1452,7 +1452,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
 
             for(int l = 0; l < woordenlijstCausaalVerband.length; l ++)
             {
-                if(description.contains(woordenlijstCausaalVerband[i].toLowerCase()))
+                if(descriptionSplittedBySpace[i].contains(woordenlijstCausaalVerband[l].toLowerCase()))
                 {
                     numberOfWordsUsedSubstitutie ++;
                 }
@@ -1474,7 +1474,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         }
         else
         {
-            substitutiegedrag = (numberOfUnUsedWords / Float.parseFloat(totalNumberOfWords + "")) * 100;
+            substitutiegedrag = (Float.parseFloat(numberOfUnUsedWords + "") / Float.parseFloat(totalNumberOfWords + "")) * 100;
         }
 
 
