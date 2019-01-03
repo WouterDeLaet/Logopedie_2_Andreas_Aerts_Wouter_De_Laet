@@ -1528,7 +1528,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
 
         if(0 < numberOfCausaalVerbandenUsed)
         {
-            numberOfCausaalVerbandenUsedScore = Integer.parseInt(numberOfWordsUsed + "");
+            numberOfCausaalVerbandenUsedScore = Integer.parseInt(numberOfCausaalVerbandenUsed + "");
         }
         else
         {
