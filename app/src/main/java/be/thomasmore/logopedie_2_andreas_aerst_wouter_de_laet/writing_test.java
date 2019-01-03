@@ -1482,7 +1482,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             substitutiegedragScore = 0;
         }
 
-        if(0 < numberOfWordsUsed)
+        if(0 < numberOfCausaalVerbandenUsed)
         {
             numberOfCausaalVerbandenUsedScore = Integer.parseInt(numberOfWordsUsed + "");
         }
@@ -1491,7 +1491,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             numberOfCausaalVerbandenUsedScore = 0;
         }
 
-        if(0 < numberOfCausaalVerbandenUsed)
+        if(0 < numberOfWordsUsed)
         {
             numberOfWordsUsedScore = Integer.parseInt(numberOfWordsUsed + "");
         }
