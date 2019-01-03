@@ -1421,48 +1421,19 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-//        for(int i = 0; i < woordenLijstEfficiëntie.length; i++)
-//        {
-//            if(description.equals(woordenLijstEfficiëntie[i].toLowerCase()))
-//            {
-//                FUBAR ++;
-//                numberOfWordsUsed += howManyTimesIsTheWordUsed(descriptionSplittedBySpace, woordenLijstEfficiëntie, i);
-//            }
-//            test ++;
-//        }
 
         for(int i = 0; i < descriptionSplittedBySpace.length; i++)
         {
-            numberOfWordsUsedSubstitutie = 0;
             for(int j = 0; j < woordenlijstSubstitutiegedrag.length; j ++)
             {
-                if(descriptionSplittedBySpace[i].equals(woordenlijstSubstitutiegedrag[j].toLowerCase()))
+                if(descriptionSplittedBySpace[i].contains(woordenlijstSubstitutiegedrag[j].toLowerCase()))
                 {
-                    numberOfWordsUsedSubstitutie ++;
+                    numberOfWordsUsedSubstitutie++;
                 }
-            }
-
-            for(int k = 0; k < woordenLijstEfficiëntie.length; k++)
-            {
-                if(descriptionSplittedBySpace[i].equals(woordenLijstEfficiëntie[k].toLowerCase()))
-                {
-                    numberOfWordsUsedSubstitutie ++;
-                }
-            }
-
-            for(int l = 0; l < woordenlijstCausaalVerband.length; l ++)
-            {
-                if(descriptionSplittedBySpace[i].contains(woordenlijstCausaalVerband[l].toLowerCase()))
-                {
-                    numberOfWordsUsedSubstitutie ++;
-                }
-            }
-
-            if(numberOfWordsUsedSubstitutie == 0)
-            {
-                numberOfUnUsedWords ++;
             }
         }
+
+        numberOfUnUsedWords = woordenlijstSubstitutiegedrag.length - numberOfWordsUsedSubstitutie;
 
         totalNumberOfWords = descriptionSplittedBySpace.length;
 
@@ -1474,7 +1445,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         }
         else
         {
-            substitutiegedrag = (Float.parseFloat(numberOfUnUsedWords + "") / Float.parseFloat(totalNumberOfWords + "")) * 100;
+            substitutiegedrag = (Float.parseFloat(numberOfUnUsedWords + "") / Float.parseFloat(woordenlijstSubstitutiegedrag.length + "")) * 100;
         }
 
 
