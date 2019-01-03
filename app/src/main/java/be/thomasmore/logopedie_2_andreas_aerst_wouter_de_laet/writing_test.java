@@ -1394,7 +1394,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         float efficiëntie = 0;
         int numberOfUnUsedWords = 0;
         float substitutiegedrag = 0;
-        float numberOfCausaalVerbandenUsed = 0;
+        int numberOfCausaalVerbandenUsed = 0;
         int efficiëntieScore = 0;
         int substitutiegedragScore = 0;
         int numberOfCausaalVerbandenUsedScore = 0;
@@ -1451,10 +1451,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-
-
-
-        totalNumberOfWords = descriptionSplittedBySpace.length;
+        totalNumberOfWords = description.length();
 
         efficiëntie = (numberOfWordsUsed / Float.parseFloat(totalNumberOfWords + "")) * 100;
 
