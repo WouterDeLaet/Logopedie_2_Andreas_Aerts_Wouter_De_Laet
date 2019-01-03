@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else {
             Intent intent = new Intent(this, writing_test.class);
+            intent.putExtra("currentPatientId", currentPatientId);
             startActivity(intent);
         }
     }
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else {
             Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("currentPatientId", currentPatientId);
             startActivity(intent);
         }
     }
@@ -129,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else {
             Intent intent = new Intent(this, StartScherm.class);
+            intent.putExtra("currentPatientId", currentPatientId);
             startActivity(intent);
         }
     }
