@@ -26,6 +26,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.text.DateFormat;
@@ -204,8 +205,6 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
                     "waren",
                     "Zullen",
                     "zal"
-
-
             };
     private String woordenlijstSubstitutiegedrag[] =
             {
@@ -1412,7 +1411,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
 
         for(int i = 0; i < woordenLijstEfficiëntie.length; i++)
         {
-            if(description.contains(woordenLijstEfficiëntie[i].toLowerCase()))
+            if(description.equals(woordenLijstEfficiëntie[i].toLowerCase()))
             {
                 numberOfWordsUsed += howManyTimesIsTheWordUsed(descriptionSplittedBySpace, woordenLijstEfficiëntie, i);
             }
@@ -1423,7 +1422,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             numberOfWordsUsedSubstitutie = 0;
             for(int j = 0; j < woordenlijstSubstitutiegedrag.length; j ++)
             {
-                if(description.contains(woordenlijstSubstitutiegedrag[i].toLowerCase()))
+                if(description.equals(woordenlijstSubstitutiegedrag[i].toLowerCase()))
                 {
                     numberOfWordsUsedSubstitutie ++;
                 }
@@ -1431,7 +1430,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
 
             for(int k = 0; k < woordenlijstSubstitutiegedrag.length; k ++)
             {
-                if(description.contains(woordenLijstEfficiëntie[i].toLowerCase()))
+                if(description.equals(woordenLijstEfficiëntie[i].toLowerCase()))
                 {
                     numberOfWordsUsedSubstitutie ++;
                 }
@@ -1439,7 +1438,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
 
             for(int l = 0; l < woordenlijstCausaalVerband.length; l ++)
             {
-                if(description.contains(woordenlijstCausaalVerband[i].toLowerCase()))
+                if(description.equals(woordenlijstCausaalVerband[i].toLowerCase()))
                 {
                     numberOfWordsUsedSubstitutie ++;
                 }
@@ -1451,9 +1450,9 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        totalNumberOfWords = description.length();
+        totalNumberOfWords = descriptionSplittedBySpace.length;
 
-        efficiëntie = (numberOfWordsUsed / Float.parseFloat(totalNumberOfWords + "")) * 100;
+        efficiëntie = (Float.parseFloat(numberOfWordsUsed + "") / Float.parseFloat(totalNumberOfWords + "")) * 100;
 
         if(numberOfUnUsedWords == 0)
         {
@@ -1468,7 +1467,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         for(int i = 0; i < woordenlijstCausaalVerband.length; i ++)
 
         {
-            if(description.contains(woordenlijstCausaalVerband[i].toLowerCase()))
+            if(description.equals(woordenlijstCausaalVerband[i].toLowerCase()))
             {
                 numberOfCausaalVerbandenUsed ++;
             }
@@ -1525,14 +1524,6 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             numberOfCausaalVerbandenUsedScore = 0;
         }
 
-        if(0 < totalNumberOfWords)
-        {
-            numberOfWordsUsedScore = totalNumberOfWords;
-        }
-        else
-        {
-            numberOfWordsUsedScore = 0;
-        }
         Bundle extras = getIntent().getExtras();
 
             long id = extras.getLong("currentPatientId");
@@ -1541,7 +1532,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             Date today = Calendar.getInstance().getTime();
             String date = format.format(today);
 
-            patient.setScoreProductiviteit(numberOfWordsUsedScore);
+            patient.setScoreProductiviteit(totalNumberOfWords);
             patient.setScoreEfficientie(efficiëntieScore);
             patient.setScoreSubstitutie(substitutiegedragScore);
             patient.setScoreCoherentie(numberOfCausaalVerbandenUsedScore);
@@ -1562,24 +1553,24 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
 
             db.updatePatient(patient);
 
-        result.setText("Productiviteit " + numberOfWordsUsed + " woorden gebruikt" + "\n" +
+        result.setText("Productiviteit " + totalNumberOfWords + " woorden gebruikt" + "\n" +
                 getString(R.string.efficiëntie) + " " + efficiëntie + "%" + "\n"
                 + getString(R.string.substitutiegedrag) + " " + substitutiegedrag + "%" + "\n"
-                + "aantal causale verbanden " + numberOfCausaalVerbandenUsed);
+                + "aantal causale verbanden " + numberOfCausaalVerbandenUsed + "\n");
     }
 
     public int howManyTimesIsTheWordUsed(String descriptionSplitted [], String listOfWords [], int word)
     {
-        int numberOfWordsUsed = 0;
+        int numberOfWordsUsedOfTheCuurentWordInTheList = 0;
         for(int j = 0; j < descriptionSplitted.length; j ++)
         {
-            if(descriptionSplitted[j].contains(listOfWords[word].toLowerCase()))
+            if(descriptionSplitted[j].equals(listOfWords[word].toLowerCase()))
             {
-                numberOfWordsUsed ++;
+                numberOfWordsUsedOfTheCuurentWordInTheList ++;
             }
         }
 
-        return numberOfWordsUsed;
+        return numberOfWordsUsedOfTheCuurentWordInTheList;
     }
 
     public int getDifferenceDays(Date d1, Date d2) {
