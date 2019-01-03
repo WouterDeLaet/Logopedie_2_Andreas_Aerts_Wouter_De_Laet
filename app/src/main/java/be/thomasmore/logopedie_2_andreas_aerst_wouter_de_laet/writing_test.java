@@ -1457,8 +1457,6 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
 
         efficiëntie = (numberOfWordsUsed / totalNumberOfWords) * 100;
 
-        Toast.makeText(getBaseContext(), numberOfUnUsedWords + "verkeerde woorden", Toast.LENGTH_SHORT).show();
-
         if(numberOfUnUsedWords == 0)
         {
             substitutiegedrag = 0;
