@@ -1452,7 +1452,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
 
             for(int l = 0; l < woordenlijstCausaalVerband.length; l ++)
             {
-                if(description.equals(woordenlijstCausaalVerband[i].toLowerCase()))
+                if(description.contains(woordenlijstCausaalVerband[i].toLowerCase()))
                 {
                     numberOfWordsUsedSubstitutie ++;
                 }
@@ -1481,7 +1481,7 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         for(int i = 0; i < woordenlijstCausaalVerband.length; i ++)
 
         {
-            if(description.equals(woordenlijstCausaalVerband[i].toLowerCase()))
+            if(description.contains(woordenlijstCausaalVerband[i].toLowerCase()))
             {
                 numberOfCausaalVerbandenUsed ++;
             }
