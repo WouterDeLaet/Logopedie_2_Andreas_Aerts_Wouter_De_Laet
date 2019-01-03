@@ -1392,13 +1392,14 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
         int numberOfWordsUsed = 0;
         int numberOfWordsUsedSubstitutie = 0;
         float efficiëntie = 0;
-        float numberOfUnUsedWords = 0;
+        int numberOfUnUsedWords = 0;
         float substitutiegedrag = 0;
         float numberOfCausaalVerbandenUsed = 0;
         int efficiëntieScore = 0;
         int substitutiegedragScore = 0;
         int numberOfCausaalVerbandenUsedScore = 0;
         int numberOfWordsUsedScore = 0;
+        int totalNumberOfWords = 0;
 
         EditText descriptionImage = (EditText) findViewById(R.id.descriptionImage);
         TextView result = (TextView) findViewById(R.id.test);
@@ -1417,19 +1418,56 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        for(int i = 0; i < woordenlijstSubstitutiegedrag.length; i++)
+        for(int i = 0; i < descriptionSplittedBySpace.length; i++)
         {
-            if(description.contains(woordenlijstSubstitutiegedrag[i].toLowerCase()))
+            numberOfWordsUsedSubstitutie = 0;
+            for(int j = 0; j < woordenlijstSubstitutiegedrag.length; j ++)
             {
-                numberOfWordsUsedSubstitutie += howManyTimesIsTheWordUsed(descriptionSplittedByPoint, woordenlijstSubstitutiegedrag, i);
-            } else {
-                numberOfUnUsedWords++;
+                if(description.contains(woordenlijstSubstitutiegedrag[i].toLowerCase()))
+                {
+                    numberOfWordsUsedSubstitutie ++;
+                }
+            }
+
+            for(int k = 0; k < woordenlijstSubstitutiegedrag.length; k ++)
+            {
+                if(description.contains(woordenLijstEfficiëntie[i].toLowerCase()))
+                {
+                    numberOfWordsUsedSubstitutie ++;
+                }
+            }
+
+            for(int l = 0; l < woordenlijstCausaalVerband.length; l ++)
+            {
+                if(description.contains(woordenlijstCausaalVerband[i].toLowerCase()))
+                {
+                    numberOfWordsUsedSubstitutie ++;
+                }
+            }
+
+            if(numberOfWordsUsedSubstitutie == 0)
+            {
+                numberOfUnUsedWords ++;
             }
         }
 
-        efficiëntie = (numberOfWordsUsed / Float.parseFloat(description.length() + "")) * 100;
+        numberOfWordsUsed --;
 
-        substitutiegedrag = (numberOfUnUsedWords / Float.parseFloat(description.length() + "")) * 100;
+        totalNumberOfWords = descriptionSplittedBySpace.length;
+
+        efficiëntie = (numberOfWordsUsed / totalNumberOfWords) * 100;
+
+        Toast.makeText(getBaseContext(), numberOfUnUsedWords + "verkeerde woorden", Toast.LENGTH_SHORT).show();
+
+        if(numberOfUnUsedWords == 0)
+        {
+            substitutiegedrag = 0;
+        }
+        else
+        {
+            substitutiegedrag = (numberOfUnUsedWords / totalNumberOfWords) * 100;
+        }
+
 
         for(int i = 0; i < woordenlijstCausaalVerband.length; i ++)
 
@@ -1491,21 +1529,16 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             numberOfCausaalVerbandenUsedScore = 0;
         }
 
-        if(0 < numberOfWordsUsed)
+        if(0 < totalNumberOfWords)
         {
-            numberOfWordsUsedScore = Integer.parseInt(numberOfWordsUsed + "");
+            numberOfWordsUsedScore = totalNumberOfWords;
         }
         else
         {
             numberOfWordsUsedScore = 0;
         }
         Bundle extras = getIntent().getExtras();
-        if(extras == null)
-        {
-            Toast.makeText(getBaseContext(), "Gelieve een patient aan te duiden", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
+
             long id = extras.getLong("currentPatientId");
             Patient patient = db.getPatient(id);
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -1532,8 +1565,6 @@ public class writing_test extends AppCompatActivity implements View.OnClickListe
             patient.setChronologischeLeeftijd(daysBetween);
 
             db.updatePatient(patient);
-
-        }
 
         result.setText("Productiviteit " + numberOfWordsUsed + " woorden gebruikt" + "\n" +
                 getString(R.string.efficiëntie) + " " + efficiëntie + "%" + "\n"
